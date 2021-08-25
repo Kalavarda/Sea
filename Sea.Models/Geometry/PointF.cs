@@ -4,7 +4,7 @@ namespace Sea.Models.Geometry
 {
     public class PointF
     {
-        private const float MinDelta = 0.1f;
+        private const float MinDelta = 0.001f;
 
         private float _x;
         private float _y;

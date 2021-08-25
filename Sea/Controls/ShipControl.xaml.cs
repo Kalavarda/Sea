@@ -30,6 +30,9 @@ namespace Sea.Controls
 
         private void RecreateShape()
         {
+            Width = _ship.Size.Width;
+            Height = _ship.Size.Height;
+
             var w = _ship.Size.Width / 2;
             var h = _ship.Size.Height / 4;
 
