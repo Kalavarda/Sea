@@ -28,8 +28,17 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
                     <TextBlock Text="Размер (км.):"/>
                     <TextBox x:Name="_tbWorldSize" Text="100" Grid.Column="1"/>
+
+                    <TextBlock Text="Количество островов:" Grid.Row="1"/>
+                    <TextBox x:Name="_tbIslandCount" Text="10" Grid.Column="1" Grid.Row="1"/>
+
                 </Grid>
             </GroupBox>
 

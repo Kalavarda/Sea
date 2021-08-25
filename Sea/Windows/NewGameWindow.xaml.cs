@@ -20,19 +20,21 @@ namespace Sea.Windows
             _appContext = appContext ?? throw new ArgumentNullException(nameof(appContext));
         }
 
-        private void OnCreateClick(object sender, RoutedEventArgs e)
+        private async void OnCreateClick(object sender, RoutedEventArgs e)
         {
             try
             {
                 var worldParameters = new WorldParameters
                 {
-                    WorldSize = float.Parse(_tbWorldSize.Text) * 1000
+                    WorldSize = float.Parse(_tbWorldSize.Text) * 1000,
+                    IslandCount = uint.Parse(_tbIslandCount.Text)
                 };
                 _appContext.Game = new Game
                 {
                     World = _appContext.WorldFactory.Create(worldParameters)
                 };
-                _appContext.GameRepository.Save(_appContext.Game, CancellationToken.None).Wait();
+                await _appContext.GameRepository.Save(_appContext.Game, CancellationToken.None);
+
                 DialogResult = true;
             }
             catch (Exception error)

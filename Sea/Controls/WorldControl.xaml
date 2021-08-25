@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Sea.Controls.WorldControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             MinWidth="100" MinHeight="100">
+    <Grid x:Name="_root" Background="DarkCyan">
+        <Canvas x:Name="_canvas">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="_scaleTransform"/>
+                    <TranslateTransform x:Name="_translateTransform"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
+    </Grid>
+</UserControl>

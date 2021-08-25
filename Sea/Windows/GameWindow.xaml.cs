@@ -14,6 +14,7 @@ namespace Sea.Windows
         public GameWindow(AppContext appContext): this()
         {
             _appContext = appContext ?? throw new ArgumentNullException(nameof(appContext));
+            _world.World = _appContext.Game.World;
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Sea.Models.Geometry;
 
 namespace Sea.Models
 {
     public class World
     {
-        public float Width { get; set; }
+        public SizeF Size { get; set; }
 
-        public float Height { get; set; }
+        public Island[] Islands { get; set; }
+
+        public Ship Ship { get; set; }
     }
 }

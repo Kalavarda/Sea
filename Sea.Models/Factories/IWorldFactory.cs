@@ -8,5 +8,7 @@
     public class WorldParameters
     {
         public float WorldSize { get; set; }
+        
+        public uint IslandCount { get; set; }
     }
 }
