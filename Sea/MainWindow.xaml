@@ -1,0 +1,18 @@
+﻿<Window x:Class="Sea.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sea" Height="240" Width="320">
+
+    <Window.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource DefaultButton}"/>
+    </Window.Resources>
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Content="Начать сначала..." Click="OnNewClick"/>
+        <Button x:Name="_btnContinue" Content="Продолжить" Grid.Row="1" Click="OnContinueClick"/>
+    </Grid>
+</Window>

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Sea.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sea.Factories\Sea.Factories.csproj" />
+    <ProjectReference Include="..\Sea.Models\Sea.Models.csproj" />
+    <ProjectReference Include="..\Sea.Repositories\Sea.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
