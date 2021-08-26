@@ -65,11 +65,11 @@ namespace Sea.Models
     {
         public RangeF Acceleration { get; set; } = new RangeF(-0.25f, 1);
 
-        public RangeF Rotation { get; set; } = new RangeF(-MathF.PI / 6, MathF.PI / 6);
+        public RangeF Rotation { get; set; } = new RangeF(-MathF.PI / 12, MathF.PI / 12);
 
         /// <summary>
         /// Коэффициент расхода топлива
         /// </summary>
-        public float FuelConsumption { get; set; } = 0.01f;
+        public float FuelConsumption { get; set; } = 0.1f;
     }
 }

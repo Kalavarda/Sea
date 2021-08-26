@@ -36,16 +36,8 @@ namespace Sea.Controls
                     _ship.Engine.Rotation.MinChanged += Rotation_Changed;
                     _ship.Engine.Rotation.MaxChanged += Rotation_Changed;
                     Rotation_Changed(_ship.Engine.Rotation);
-
-                    _ship.Fuel.ValueChanged += Fuel_ValueChanged;
-                    Fuel_ValueChanged(_ship.Fuel);
                 }
             }
-        }
-
-        private void Fuel_ValueChanged(RangeF fuel)
-        {
-            _tbFuel.Text = MathF.Round(fuel.Value).ToString("### ### ###");
         }
 
         private void Acceleration_ValueChanged(RangeF acc)

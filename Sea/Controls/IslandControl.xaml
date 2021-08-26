@@ -5,5 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Polygon x:Name="_polygon" Fill="#402000"/>
+    <Grid>
+        <Polygon x:Name="_polygon" Fill="#402000"/>
+        <Canvas x:Name="_canvas"/>
+    </Grid>
 </UserControl>

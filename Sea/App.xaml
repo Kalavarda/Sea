@@ -69,5 +69,11 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="2"/>
         </Style>
+        
+        <SolidColorBrush x:Key="Back" Color="#80000000"/>
+
+        <Style TargetType="TextBlock" x:Key="LightText">
+            <Setter Property="Foreground" Value="Yellow"/>
+        </Style>
     </Application.Resources>
 </Application>

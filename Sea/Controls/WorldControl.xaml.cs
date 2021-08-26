@@ -61,6 +61,8 @@ namespace Sea.Controls
 
         private void Ship_DirectionChanged()
         {
+            _shipRotateTransform.CenterX = _shipControl.Width / 2;
+            _shipRotateTransform.CenterY = _shipControl.Height / 2;
             _shipRotateTransform.Angle = 180 * _world.Ship.Direction / MathF.PI - 90;
         }
 

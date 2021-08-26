@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Sea.Models;
 
 namespace Sea.Controls
@@ -22,6 +23,15 @@ namespace Sea.Controls
                     _polygon.Points.Clear();
                     foreach (var p in _island.Points)
                         _polygon.Points.Add(new Point(p.X, p.Y));
+                    
+                    _canvas.Children.Clear();
+                    foreach (var port in _island.Ports)
+                    {
+                        var portControl = new PortControl { Port = port };
+                        Canvas.SetLeft(portControl, port.Position.X - portControl.Width / 2);
+                        Canvas.SetTop(portControl, port.Position.Y - portControl.Height / 2);
+                        _canvas.Children.Add(portControl);
+                    }
                 }
             }
         }

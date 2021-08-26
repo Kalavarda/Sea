@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Sea.Controls.InfoBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="Background" Value="#01808080"/>
+        </Style>
+    </UserControl.Resources>
+
+    <WrapPanel Orientation="Horizontal" Background="{StaticResource Back}">
+        <Border ToolTip="Деньги" Style="{StaticResource BorderStyle}">
+            <TextBlock x:Name="_tbMoney" Text="123 456" Foreground="White"/>
+        </Border>
+        <Border ToolTip="Топливо" Style="{StaticResource BorderStyle}">
+            <TextBlock x:Name="_tbFuel" Text="123 456" Foreground="Yellow"/>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock x:Name="_tbMouseWorldPos" Text="(12.3; 45.6)" Foreground="#80FFFFFF"/>
+        </Border>
+    </WrapPanel>
+</UserControl>

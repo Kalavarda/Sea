@@ -4,16 +4,21 @@
         xmlns:controls="clr-namespace:Sea.Controls"
         WindowState="Maximized" ShowInTaskbar="False"
         Title="Sea" Height="300" Width="400">
+
+    <Window.Resources>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="Background" Value="#01808080"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <controls:WorldControl x:Name="_world"/>
-
-        <WrapPanel Orientation="Horizontal" Grid.Row="1" Background="#80000000">
-            <TextBlock x:Name="_tbMouseWorldPos" Text="(12.3; 45.6)" Foreground="#FFFF80"/>
-        </WrapPanel>
+        <controls:WorldControl x:Name="_worldControl" Grid.RowSpan="2"/>
+        <controls:InfoBar x:Name="_infoBar"/>
     </Grid>
 </Window>

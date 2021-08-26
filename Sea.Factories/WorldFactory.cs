@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sea.Models;
 using Sea.Models.Factories;
 using Sea.Models.Geometry;
+using PointF = Sea.Models.Geometry.PointF;
+using SizeF = Sea.Models.Geometry.SizeF;
 
 namespace Sea.Factories
 {
@@ -29,7 +32,7 @@ namespace Sea.Factories
                     Height = parameters.WorldSize,
                 },
                 Islands = islands,
-                Ship = new Ship()
+                Ship = new Ship(),
             };
             world.Ship.Position = GetFreePosition(world);
             return world;
@@ -39,17 +42,22 @@ namespace Sea.Factories
         {
             // TODO: найти свободную точку
 
+            var centerPoint = new PointF();
+            var nearestPort = world.Islands.SelectMany(i => i.Ports)
+                .OrderBy(p => p.Position.DistanceTo(centerPoint))
+                .First();
+
             return new PointF
             {
-                X = world.Size.Width * (float)Rand.NextDouble() - world.Size.Width / 2,
-                Y = world.Size.Height * (float)Rand.NextDouble() - world.Size.Height / 2
+                X = nearestPort.Position.X,
+                Y = nearestPort.Position.Y
             };
         }
 
         private static Island[] CreateIslands(WorldParameters parameters)
         {
             var worldArea = parameters.WorldSize * parameters.WorldSize;
-            var defaultIslandArea = (worldArea / parameters.IslandCount) / 100;
+            var defaultIslandArea = (worldArea / parameters.IslandCount) / 1000;
             var defaultIslandSize = MathF.Sqrt(defaultIslandArea);
 
             var islands = new Island[parameters.IslandCount];
@@ -59,7 +67,7 @@ namespace Sea.Factories
                 var offset = parameters.WorldSize/2 * (float)Rand.NextDouble();
                 var x = MathF.Cos(angle) * offset;
                 var y = MathF.Sin(angle) * offset;
-                islands[i] = CreateIsland(x, y, defaultIslandSize * (0.5f + 1.5f * (float)Rand.NextDouble()));
+                islands[i] = CreateIsland(x, y, defaultIslandSize * (0.25f + 3.75f * (float)Rand.NextDouble()));
             }
             return islands;
         }
@@ -67,16 +75,21 @@ namespace Sea.Factories
         private static Island CreateIsland(float x, float y, float defaultSize)
         {
             var points = new List<PointF>();
+            var ports = new List<Port>();
             for (var i = 0; i < 8; i++)
             {
                 var a = i * MathF.PI / 4;
                 var r = defaultSize * (0.25f + 0.5f * (float)Rand.NextDouble());
-                points.Add(new PointF { X = x + r * MathF.Cos(a), Y = y + r * MathF.Sin(a) });
+                var vertex = new PointF { X = x + r * MathF.Cos(a), Y = y + r * MathF.Sin(a) };
+                points.Add(vertex);
+                if (Rand.Next(2) == 0)
+                    ports.Add(new Port { Position = vertex });
             }
 
             return new Island
             {
-                Points = points.ToArray()
+                Points = points.ToArray(),
+                Ports = ports.ToArray()
             };
         }
     }

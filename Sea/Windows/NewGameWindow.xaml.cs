@@ -31,7 +31,12 @@ namespace Sea.Windows
                 };
                 _appContext.Game = new Game
                 {
-                    World = _appContext.WorldFactory.Create(worldParameters)
+                    World = _appContext.WorldFactory.Create(worldParameters),
+                    Economy = new Economy
+                    {
+                        Money = 10000,
+                        FuelPrice = 15
+                    }
                 };
                 await _appContext.GameRepository.Save(_appContext.Game, CancellationToken.None);
 

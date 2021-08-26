@@ -7,5 +7,7 @@ namespace Sea.Models
         public DateTime CreationTime { get; set; } = DateTime.Now;
 
         public World World { get; set; }
+
+        public Economy Economy { get; set; }
     }
 }

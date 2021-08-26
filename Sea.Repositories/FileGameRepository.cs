@@ -40,7 +40,7 @@ namespace Sea.Repositories
         private static string CreateFileName(Game game)
         {
             var folder = GetFolder();
-            return Path.Combine(folder, $"{game.CreationTime:yyyy-MM-dd_hh-mm-ss}.game.json");
+            return Path.Combine(folder, $"{game.CreationTime:yyyy-MM-dd_HH-mm-ss}.game.json");
         }
 
         private static string GetFolder()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using Sea.Controllers;
 using Sea.Controls;
 
@@ -17,27 +18,24 @@ namespace Sea.Windows
         public GameWindow(AppContext appContext): this()
         {
             _appContext = appContext ?? throw new ArgumentNullException(nameof(appContext));
-            _world.World = _appContext.Game.World;
+            _worldControl.World = _appContext.Game.World;
+
+            _infoBar.Game = _appContext.Game;
+            _infoBar.WorldControl = _worldControl;
 
             new TimeController(_appContext.Game.World);
-
-            _world.MouseWorldPosition.Changed += MouseWorldPosition_Changed;
-            MouseWorldPosition_Changed();
 
             Loaded += GameWindow_Loaded;
         }
 
-        private void MouseWorldPosition_Changed()
-        {
-            _tbMouseWorldPos.Text = $"{MathF.Round(_world.MouseWorldPosition.X):### ### ###}; {MathF.Round(_world.MouseWorldPosition.Y):### ### ###}";
-        }
-
         private void GameWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            new TradeController(_appContext, this);
+
             ShowToolWindow(new ShipDashboard { Ship = _appContext.Game.World.Ship }, 300, 300);
         }
 
-        private void ShowToolWindow(ShipDashboard content, int width, int height)
+        internal void ShowToolWindow(UserControl content, int width, int height)
         {
             new Window
             {

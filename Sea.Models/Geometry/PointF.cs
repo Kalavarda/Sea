@@ -54,4 +54,26 @@ namespace Sea.Models.Geometry
             Changed?.Invoke();
         }
     }
+
+    public static class PointFExtensions
+    {
+        public static float DistanceTo(this PointF point1, PointF point2)
+        {
+            if (point1 == null) throw new ArgumentNullException(nameof(point1));
+            if (point2 == null) throw new ArgumentNullException(nameof(point2));
+            var dx = point2.X - point1.X;
+            var dy = point2.Y - point1.Y;
+            return MathF.Sqrt(dx * dx + dy * dy);
+        }
+
+        public static PointF Clone(this PointF point)
+        {
+            if (point == null) throw new ArgumentNullException(nameof(point));
+            return new PointF
+            {
+                X = point.X,
+                Y = point.Y
+            };
+        }
+    }
 }

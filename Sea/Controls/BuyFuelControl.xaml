@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Sea.Controls.BuyFuelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource DefaultButton}"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Сколько купить: "/>
+        <TextBox x:Name="_tbCount" Grid.Column="1"/>
+
+        <Button Content="Купить" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="OnBuyClick"/>
+    </Grid>
+</UserControl>
