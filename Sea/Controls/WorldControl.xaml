@@ -2,8 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              MinWidth="100" MinHeight="100">
-    <Grid x:Name="_root" Background="DarkCyan">
-        <Canvas x:Name="_canvas">
+    <Grid x:Name="_root" Background="#01808080">
+        <Canvas x:Name="_canvas" MouseMove="_canvas_OnMouseMove">
             <Canvas.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform x:Name="_scaleTransform"/>

@@ -16,12 +16,16 @@ namespace Sea.Controllers
         {
             var seconds = (float)delta.TotalSeconds;
 
-            _ship.Speed += seconds * _ship.Engine.Acceleration.Value;
+            var waterResistance = 0.5f * _ship.Speed; // сопротивление среды
+
+            _ship.Speed += seconds * (_ship.Engine.Acceleration.Value - waterResistance);
             _ship.Direction += seconds * _ship.Engine.Rotation.Value;
 
             var x = _ship.Position.X + seconds * _ship.Speed * MathF.Cos(_ship.Direction);
             var y = _ship.Position.Y + seconds * _ship.Speed * MathF.Sin(_ship.Direction);
             _ship.Position.Set(x, y);
+
+            _ship.Fuel.Value -= seconds * MathF.Pow(MathF.Abs(_ship.Engine.Acceleration.Value) * _ship.Engine.FuelConsumption, 1.5f);
         }
     }
 }

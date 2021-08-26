@@ -36,8 +36,16 @@ namespace Sea.Controls
                     _ship.Engine.Rotation.MinChanged += Rotation_Changed;
                     _ship.Engine.Rotation.MaxChanged += Rotation_Changed;
                     Rotation_Changed(_ship.Engine.Rotation);
+
+                    _ship.Fuel.ValueChanged += Fuel_ValueChanged;
+                    Fuel_ValueChanged(_ship.Fuel);
                 }
             }
+        }
+
+        private void Fuel_ValueChanged(RangeF fuel)
+        {
+            _tbFuel.Text = MathF.Round(fuel.Value).ToString("### ### ###");
         }
 
         private void Acceleration_ValueChanged(RangeF acc)
@@ -80,6 +88,16 @@ namespace Sea.Controls
         private void _sliderR_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             _ship.Engine.Rotation.Value = (float)_sliderR.Value / SliderRatio;
+        }
+
+        private void OnAccelerationOffClick(object sender, RoutedEventArgs e)
+        {
+            _sliderA.Value = 0;
+        }
+
+        private void OnRotationOffClick(object sender, RoutedEventArgs e)
+        {
+            _sliderR.Value = 0;
         }
     }
 }

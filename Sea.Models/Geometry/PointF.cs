@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Sea.Models.Geometry
 {
+    [DebuggerDisplay("{X}; {Y}")]
     public class PointF
     {
         private const float MinDelta = 0.001f;

@@ -21,7 +21,15 @@ namespace Sea.Windows
 
             new TimeController(_appContext.Game.World);
 
+            _world.MouseWorldPosition.Changed += MouseWorldPosition_Changed;
+            MouseWorldPosition_Changed();
+
             Loaded += GameWindow_Loaded;
+        }
+
+        private void MouseWorldPosition_Changed()
+        {
+            _tbMouseWorldPos.Text = $"{MathF.Round(_world.MouseWorldPosition.X):### ### ###}; {MathF.Round(_world.MouseWorldPosition.Y):### ### ###}";
         }
 
         private void GameWindow_Loaded(object sender, RoutedEventArgs e)
@@ -37,7 +45,8 @@ namespace Sea.Windows
                 Owner = this,
                 ShowInTaskbar = false,
                 Width = width,
-                Height = height
+                Height = height,
+                WindowStyle = WindowStyle.ToolWindow
             }.Show();
         }
     }

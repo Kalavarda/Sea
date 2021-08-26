@@ -6,8 +6,8 @@ namespace Sea.Models
 {
     public class Ship
     {
-        private const double MinSpeedDelta = 0.001;
-        private const double MinDirectionDelta = MathF.PI / 180;
+        private const double MinSpeedDelta = 0.0001;
+        private const double MinDirectionDelta = MathF.PI / 1000;
 
         private float _speed;
         private float _direction;
@@ -25,6 +25,11 @@ namespace Sea.Models
                     return;
 
                 _direction = value;
+
+                if (_direction > MathF.PI)
+                    _direction -= 2 * MathF.PI;
+                if (_direction < -MathF.PI)
+                    _direction += 2 * MathF.PI;
 
                 DirectionChanged?.Invoke();
             }
@@ -52,6 +57,8 @@ namespace Sea.Models
         }
 
         public event Action SpeedChanged;
+
+        public RangeF Fuel { get; set; } = new RangeF { Max = 10, Value = 10 };
     }
 
     public class Engine
@@ -59,5 +66,10 @@ namespace Sea.Models
         public RangeF Acceleration { get; set; } = new RangeF(-0.25f, 1);
 
         public RangeF Rotation { get; set; } = new RangeF(-MathF.PI / 6, MathF.PI / 6);
+
+        /// <summary>
+        /// Коэффициент расхода топлива
+        /// </summary>
+        public float FuelConsumption { get; set; } = 0.01f;
     }
 }

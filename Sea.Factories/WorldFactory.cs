@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Sea.Models;
 using Sea.Models.Factories;
 using Sea.Models.Geometry;
@@ -48,29 +49,35 @@ namespace Sea.Factories
         private static Island[] CreateIslands(WorldParameters parameters)
         {
             var worldArea = parameters.WorldSize * parameters.WorldSize;
-            var defaultIslandArea = (worldArea / parameters.IslandCount) / 10;
+            var defaultIslandArea = (worldArea / parameters.IslandCount) / 100;
             var defaultIslandSize = MathF.Sqrt(defaultIslandArea);
 
             var islands = new Island[parameters.IslandCount];
             for (var i = 0; i < islands.Length; i++)
             {
                 var angle = 2 * MathF.PI * (float)Rand.NextDouble();
-                var offset = parameters.WorldSize/2 * (float)Rand.NextDouble(); // TODO: расположить по квадрату, а не по кругу
-                var x = parameters.WorldSize / 2 + MathF.Cos(angle) * offset;
-                var y = parameters.WorldSize / 2 + MathF.Sin(angle) * offset;
-
-                islands[i] = new Island
-                {
-                    Points = new [] // TODO: сделать сложную форму
-                    {
-                        new PointF { X = x - defaultIslandSize / 2, Y = y - defaultIslandSize / 2},
-                        new PointF { X = x - defaultIslandSize / 2, Y = y + defaultIslandSize / 2},
-                        new PointF { X = x + defaultIslandSize / 2, Y = y + defaultIslandSize / 2},
-                        new PointF { X = x + defaultIslandSize / 2, Y = y - defaultIslandSize / 2}
-                    }
-                };
+                var offset = parameters.WorldSize/2 * (float)Rand.NextDouble();
+                var x = MathF.Cos(angle) * offset;
+                var y = MathF.Sin(angle) * offset;
+                islands[i] = CreateIsland(x, y, defaultIslandSize * (0.5f + 1.5f * (float)Rand.NextDouble()));
             }
             return islands;
+        }
+
+        private static Island CreateIsland(float x, float y, float defaultSize)
+        {
+            var points = new List<PointF>();
+            for (var i = 0; i < 8; i++)
+            {
+                var a = i * MathF.PI / 4;
+                var r = defaultSize * (0.25f + 0.5f * (float)Rand.NextDouble());
+                points.Add(new PointF { X = x + r * MathF.Cos(a), Y = y + r * MathF.Sin(a) });
+            }
+
+            return new Island
+            {
+                Points = points.ToArray()
+            };
         }
     }
 }

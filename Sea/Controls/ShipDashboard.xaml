@@ -18,6 +18,10 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,10 +29,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Координаты (м.): "/>
@@ -40,9 +45,24 @@
             <TextBlock Text="Тяга (м/сек.кв.): " Grid.Row="2"/>
             <TextBlock x:Name="_tbAccel" Grid.Column="2" Grid.Row="2"/>
 
-            <Slider x:Name="_sliderR" Grid.ColumnSpan="2" Grid.Row="3" ValueChanged="_sliderR_OnValueChanged" TickPlacement="TopLeft"/>
+            <TextBlock Text="Запас топлива (л.): " Grid.Row="3"/>
+            <TextBlock x:Name="_tbFuel" Grid.Column="1" Grid.Row="3"/>
         </Grid>
 
-        <Slider x:Name="_sliderA" Grid.Column="1" Orientation="Vertical" ValueChanged="_sliderA_OnValueChanged" TickPlacement="TopLeft"/>
+        <Slider x:Name="_sliderA" Grid.Column="1" Orientation="Vertical" ValueChanged="_sliderA_OnValueChanged" TickPlacement="TopLeft">
+            <Slider.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Выключить" Click="OnAccelerationOffClick"/>
+                </ContextMenu>
+            </Slider.ContextMenu>
+        </Slider>
+
+        <Slider x:Name="_sliderR" Grid.ColumnSpan="2" Grid.Row="1" ValueChanged="_sliderR_OnValueChanged" TickPlacement="TopLeft">
+            <Slider.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="В центральное положение" Click="OnRotationOffClick"/>
+                </ContextMenu>
+            </Slider.ContextMenu>
+        </Slider>
     </Grid>
 </UserControl>
