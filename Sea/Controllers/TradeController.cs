@@ -17,13 +17,28 @@ namespace Sea.Controllers
             _gameWindow = gameWindow ?? throw new ArgumentNullException(nameof(gameWindow));
 
             foreach (var port in appContext.Game.World.Islands.SelectMany(i => i.Ports))
+            {
                 port.TradeFuel += Port_TradeFuel;
+                port.TakeOrder += PortTakeOrder;
+                port.CompleteOrder += PortCompleteOrder;
+            }
+        }
+
+        private void PortCompleteOrder(Port port)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PortTakeOrder(Port port)
+        {
+            var control = new TakeOrderControl(_appContext.GetBuyController(port));
+            _gameWindow.ShowToolWindow(control, 300, 300, "Принять заказ на доставку");
         }
 
         private void Port_TradeFuel(Port port)
         {
-            var buyFuelControl = new BuyFuelControl(_appContext.BuyFuelController);
-            _gameWindow.ShowToolWindow(buyFuelControl, 300, 200, "Купить топливо");
+            var control = new BuyFuelControl(_appContext.BuyFuelController);
+            _gameWindow.ShowToolWindow(control, 300, 200, "Купить топливо");
         }
     }
 }

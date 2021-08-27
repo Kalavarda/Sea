@@ -11,6 +11,8 @@ namespace Sea.Models.Geometry
         private float _x;
         private float _y;
 
+        public static PointF Zero { get; } = new PointF { X = 0, Y = 0 };
+
         public float X
         {
             get => _x;

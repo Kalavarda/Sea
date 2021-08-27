@@ -1,4 +1,4 @@
-﻿namespace Sea.Models.Factories
+﻿namespace Sea.Models.Interfaces
 {
     public interface IWorldFactory
     {

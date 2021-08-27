@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sea.Models.Repositories
+namespace Sea.Models.Interfaces
 {
     public interface IGameRepository
     {

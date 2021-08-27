@@ -1,4 +1,4 @@
-﻿namespace Sea.Models.Controllers
+﻿namespace Sea.Models.Interfaces
 {
     public interface IBuyFuelController
     {

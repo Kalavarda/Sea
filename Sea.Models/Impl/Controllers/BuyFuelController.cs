@@ -1,8 +1,7 @@
 ﻿using System;
-using Sea.Models;
-using Sea.Models.Controllers;
+using Sea.Models.Interfaces;
 
-namespace Sea.Controllers
+namespace Sea.Models.Impl.Controllers
 {
     public class BuyFuelController: IBuyFuelController
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Sea.Factories;
-using Sea.Models.Factories;
+using Sea.Models.Interfaces;
 
 namespace Sea.Tests.Factories
 {

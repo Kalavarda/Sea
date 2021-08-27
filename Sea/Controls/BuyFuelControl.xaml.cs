@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using Sea.Models.Controllers;
+using Sea.Models.Interfaces;
 
 namespace Sea.Controls
 {

@@ -23,5 +23,17 @@ namespace Sea.Models
         public event Action MoneyChanged;
 
         public decimal FuelPrice { get; set; }
+
+        /// <summary>
+        /// Справочник
+        /// </summary>
+        public Goods[] Goods { get; set; }
+
+        public OrderOption[] OrderOptions { get; set; } = new OrderOption[0];
+
+        /// <summary>
+        /// Принятые заказы
+        /// </summary>
+        public Order[] Orders { get; set; } = new Order[0];
     }
 }

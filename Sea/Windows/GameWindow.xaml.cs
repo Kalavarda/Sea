@@ -23,7 +23,7 @@ namespace Sea.Windows
             _infoBar.Game = _appContext.Game;
             _infoBar.WorldControl = _worldControl;
 
-            new TimeController(_appContext.Game.World);
+            new RealTimeController(_appContext);
 
             Loaded += GameWindow_Loaded;
         }

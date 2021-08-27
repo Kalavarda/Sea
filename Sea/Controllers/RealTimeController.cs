@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Windows.Threading;
 using Sea.Models;
+using Sea.Utils;
 
 namespace Sea.Controllers
 {
-    public class TimeController
+    public class RealTimeController
     {
+        private readonly AppContext _appContext;
         private readonly DispatcherTimer _timer = new DispatcherTimer();
         private DateTime _prevTime = DateTime.MinValue;
         private static readonly TimeSpan _bigTimeSpan = TimeSpan.FromDays(1);
         private readonly ShipTimeController _shipTimeController;
+        private readonly TimeLimiter _limiter = new TimeLimiter(TimeSpan.FromMinutes(1));
 
-        public TimeController(World world)
+        public RealTimeController(AppContext appContext)
         {
+            _appContext = appContext ?? throw new ArgumentNullException(nameof(appContext));
+
+            _shipTimeController = new ShipTimeController(_appContext.Game.World.Ship);
+
             _timer.Interval = TimeSpan.FromSeconds(1 / 60d);
             _timer.Tick += _timer_Tick;
-            _shipTimeController = new ShipTimeController(world.Ship);
             _timer.Start();
         }
 
@@ -27,6 +33,11 @@ namespace Sea.Controllers
                 _shipTimeController.Process(dt);
             }
             _prevTime = DateTime.Now;
+
+            _limiter.Do(() =>
+            {
+                _appContext.OrdersController.Refresh();
+            });
         }
     }
 }

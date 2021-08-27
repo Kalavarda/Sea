@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using Sea.Controllers;
 using Sea.Models;
+using Sea.Models.Impl.Controllers;
 
 namespace Sea.Tests.Controllers
 {

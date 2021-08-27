@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Sea.Models;
-using Sea.Models.Repositories;
+using Sea.Models.Interfaces;
+using Path = System.IO.Path;
 
 namespace Sea.Repositories
 {
@@ -30,7 +32,7 @@ namespace Sea.Repositories
         {
             if (game == null) throw new ArgumentNullException(nameof(game));
 
-            var json = JsonSerializer.Serialize(game, new JsonSerializerOptions { WriteIndented = true });
+            var json = JsonSerializer.Serialize(game, new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
 
             await using var file = new FileStream(CreateFileName(game), FileMode.Create, FileAccess.Write, FileShare.None);
             await using var writer = new StreamWriter(file);

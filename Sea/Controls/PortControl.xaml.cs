@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Sea.Models;
 
 namespace Sea.Controls
@@ -31,7 +32,22 @@ namespace Sea.Controls
 
         private void OnBuyFuelClick(object sender, RoutedEventArgs e)
         {
-            Port?.RaiseTradeFuel();
+            Port.RaiseTradeFuel();
+        }
+
+        private void OnTakeOrderClick(object sender, RoutedEventArgs e)
+        {
+            Port.RaiseTakeOrder();
+        }
+
+        private void OnCompleteOrderClick(object sender, RoutedEventArgs e)
+        {
+            Port.RaiseCompleteOrder();
+        }
+
+        private void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            //_miTakeOrder.IsEnabled = Port != null && Port.Sales.Any();
         }
     }
 }

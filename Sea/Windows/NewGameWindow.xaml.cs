@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
-using Sea.Models;
-using Sea.Models.Factories;
+using Sea.Models.Interfaces;
 
 namespace Sea.Windows
 {
@@ -29,15 +28,13 @@ namespace Sea.Windows
                     WorldSize = float.Parse(_tbWorldSize.Text) * 1000,
                     IslandCount = uint.Parse(_tbIslandCount.Text)
                 };
-                _appContext.Game = new Game
+                var gameParameters = new GameParameters
                 {
-                    World = _appContext.WorldFactory.Create(worldParameters),
-                    Economy = new Economy
-                    {
-                        Money = 10000,
-                        FuelPrice = 15
-                    }
+                    WorldParameters = worldParameters,
+                    Money = decimal.Parse(_tbMoney.Text),
+                    FuelPrice = decimal.Parse(_tbFuelPrice.Text)
                 };
+                _appContext.Game = _appContext.GameFactory.Create(gameParameters);
                 await _appContext.GameRepository.Save(_appContext.Game, CancellationToken.None);
 
                 DialogResult = true;

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sea.Models;
-using Sea.Models.Factories;
 using Sea.Models.Geometry;
+using Sea.Models.Interfaces;
 using PointF = Sea.Models.Geometry.PointF;
 using SizeF = Sea.Models.Geometry.SizeF;
 
@@ -69,6 +69,14 @@ namespace Sea.Factories
                 var y = MathF.Sin(angle) * offset;
                 islands[i] = CreateIsland(x, y, defaultIslandSize * (0.25f + 3.75f * (float)Rand.NextDouble()));
             }
+
+            uint id = 1;
+            foreach (var port in islands.SelectMany(i => i.Ports))
+            {
+                port.Id = id;
+                id++;
+            }
+
             return islands;
         }
 
