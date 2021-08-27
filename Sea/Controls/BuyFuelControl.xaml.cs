@@ -16,13 +16,14 @@ namespace Sea.Controls
         public BuyFuelControl(IBuyFuelController buyFuelController): this()
         {
             _buyFuelController = buyFuelController ?? throw new ArgumentNullException(nameof(buyFuelController));
+            _tbCount.Text = MathF.Floor(_buyFuelController.GetMaxAvailableCount()).ToString("### ### ###").Trim();
         }
 
         private void OnBuyClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                _buyFuelController.Buy(float.Parse(_tbCount.Text));
+                _buyFuelController.Buy(float.Parse(_tbCount.Text.Replace(" ", string.Empty)));
             }
             catch (Exception error)
             {

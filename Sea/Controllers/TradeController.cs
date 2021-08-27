@@ -23,7 +23,7 @@ namespace Sea.Controllers
         private void Port_TradeFuel(Port port)
         {
             var buyFuelControl = new BuyFuelControl(_appContext.BuyFuelController);
-            _gameWindow.ShowToolWindow(buyFuelControl, 300, 200);
+            _gameWindow.ShowToolWindow(buyFuelControl, 300, 200, "Купить топливо");
         }
     }
 }

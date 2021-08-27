@@ -32,10 +32,10 @@ namespace Sea.Windows
         {
             new TradeController(_appContext, this);
 
-            ShowToolWindow(new ShipDashboard { Ship = _appContext.Game.World.Ship }, 300, 300);
+            ShowToolWindow(new ShipDashboard { Ship = _appContext.Game.World.Ship }, 300, 300, string.Empty);
         }
 
-        internal void ShowToolWindow(UserControl content, int width, int height)
+        internal void ShowToolWindow(UserControl content, int width, int height, string title)
         {
             new Window
             {
@@ -44,7 +44,8 @@ namespace Sea.Windows
                 ShowInTaskbar = false,
                 Width = width,
                 Height = height,
-                WindowStyle = WindowStyle.ToolWindow
+                WindowStyle = WindowStyle.ToolWindow,
+                Title = title
             }.Show();
         }
     }

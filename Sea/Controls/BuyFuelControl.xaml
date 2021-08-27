@@ -4,10 +4,13 @@
 
     <UserControl.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource DefaultButton}"/>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultText}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource DefaultTextBox}"/>
     </UserControl.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -19,6 +22,6 @@
         <TextBlock Text="Сколько купить: "/>
         <TextBox x:Name="_tbCount" Grid.Column="1"/>
 
-        <Button Content="Купить" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="OnBuyClick"/>
+        <Button Content="Купить" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="OnBuyClick"/>
     </Grid>
 </UserControl>
