@@ -4,7 +4,7 @@ using Sea.Models.Geometry;
 
 namespace Sea.Models
 {
-    public class Ship
+    public class Ship : IHasPosition
     {
         private const double MinSpeedDelta = 0.0001;
         private const double MinDirectionDelta = MathF.PI / 1000;
@@ -39,7 +39,7 @@ namespace Sea.Models
 
         public SizeF Size { get; set; } = new SizeF { Width = 1, Height = 2 };
 
-        public Engine Engine { get; set; } = new Engine();
+        public Engine Engine { get; set; }
 
         [JsonIgnore]
         public float Speed
@@ -58,18 +58,23 @@ namespace Sea.Models
 
         public event Action<float> SpeedChanged;
 
-        public RangeF Fuel { get; set; } = new RangeF { Max = 10, Value = 10 };
+        public RangeF Fuel { get; set; }
+
+        /// <summary>
+        /// Масса товаров
+        /// </summary>
+        public RangeF GoodsMass { get; set; }
     }
 
     public class Engine
     {
-        public RangeF Acceleration { get; set; } = new RangeF(-0.25f, 1);
+        public RangeF Acceleration { get; set; }
 
-        public RangeF Rotation { get; set; } = new RangeF(-MathF.PI / 12, MathF.PI / 12);
+        public RangeF Rotation { get; set; }
 
         /// <summary>
         /// Коэффициент расхода топлива
         /// </summary>
-        public float FuelConsumption { get; set; } = 0.1f;
+        public float FuelConsumption { get; set; }
     }
 }

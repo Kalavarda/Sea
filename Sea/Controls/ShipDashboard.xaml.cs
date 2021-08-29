@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Sea.Models;
 using Sea.Models.Geometry;
+using Sea.Models.Utils;
 
 namespace Sea.Controls
 {
@@ -43,7 +43,7 @@ namespace Sea.Controls
 
         private void Acceleration_ValueChanged(RangeF acc)
         {
-            _tbAccel.Text = MathF.Round(acc.Value, 2).ToString();
+            _tbAccel.Text = acc.Value.ToStr();
         }
 
         private void Rotation_Changed(RangeF rotation)
@@ -54,7 +54,7 @@ namespace Sea.Controls
 
         private void _ship_SpeedChanged(float speed)
         {
-            _tbSpeed.Text = MathF.Round(_ship.Speed, 1) + " м/с";
+            _tbSpeed.Text = _ship.Speed.ToStr() + " м/с";
         }
 
         private void Acceleration_Changed(RangeF acceleration)
@@ -65,7 +65,7 @@ namespace Sea.Controls
 
         private void Position_Changed(PointF pos)
         {
-            _tbPosition.Text = $"{MathF.Round(_ship.Position.X):### ### ### ###} ; {MathF.Round(_ship.Position.Y):### ### ### ###}";
+            _tbPosition.Text = $"{_ship.Position.X.ToStr()} ; {_ship.Position.Y.ToStr()}";
         }
 
         public ShipDashboard()

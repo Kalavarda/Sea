@@ -37,8 +37,8 @@
         <TextBlock Text="Плата за доставку единицы товара: " Grid.Row="2"/>
         <TextBlock x:Name="_tbCostByItem" Grid.Column="1" Grid.Row="2"/>
 
-        <TextBlock Text="Сколько купить: " Grid.Row="3"/>
-        <TextBox x:Name="_tbCount" Grid.Column="1" Grid.Row="3"/>
+        <TextBlock Text="Какую массу загрузить: " Grid.Row="3"/>
+        <TextBox x:Name="_tbMass" Grid.Column="1" Grid.Row="3"/>
 
         <Button Content="Принять заказ" x:Name="_btn" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="OnTakeOrderClick"/>
     </Grid>

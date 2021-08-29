@@ -1,4 +1,4 @@
-﻿using Sea.Controllers;
+﻿using System;
 using Sea.Factories;
 using Sea.Models;
 using Sea.Models.Impl;
@@ -14,7 +14,8 @@ namespace Sea
         private IBuyFuelController _buyFuelController;
         private IOrdersController _ordersController;
         private readonly OrderCostCalculator _orderCostCalculator = new OrderCostCalculator();
-        private readonly PathFinder _pathFinder = new PathFinder();
+
+        public PathFinder PathFinder { get; } = new PathFinder();
 
         public Game Game
         {
@@ -53,7 +54,19 @@ namespace Sea
 
         public ITakeOrderController GetBuyController(Port port)
         {
-            return new TakeOrderController(Game, port, _pathFinder, _orderCostCalculator);
+            return new TakeOrderController(Game, port, PathFinder, _orderCostCalculator);
+        }
+
+        public void SaveGame()
+        {
+            try
+            {
+                GameRepository.Save(Game);
+            }
+            catch (Exception error)
+            {
+                App.ShowError(error);
+            }
         }
     }
 }

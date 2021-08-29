@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Windows;
+﻿using System.Windows;
 using Sea.Windows;
 
 namespace Sea
@@ -15,9 +14,9 @@ namespace Sea
             Loaded += MainWindow_Loaded;
         }
 
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _appContext.Game = await _appContext.GameRepository.Load(CancellationToken.None);
+            _appContext.Game = _appContext.GameRepository.Load();
             _btnContinue.IsEnabled = _appContext.Game != null;
 
             if (!_btnContinue.IsEnabled)

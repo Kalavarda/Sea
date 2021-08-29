@@ -1,12 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Sea.Models.Interfaces
+﻿namespace Sea.Models.Interfaces
 {
     public interface IGameRepository
     {
-        Task<Game> Load(CancellationToken cancellationToken);
+        Game Load();
 
-        Task Save(Game game, CancellationToken cancellationToken);
+        void Save(Game game);
     }
 }

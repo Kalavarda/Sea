@@ -46,6 +46,8 @@ namespace Sea.Controls
                         _canvas.Children.Add(control);
                     }
 
+                    _canvas.Children.Add(PathCanvas);
+
                     _shipRotateTransform = new RotateTransform();
                     _shipControl = new ShipControl
                     {
@@ -60,6 +62,8 @@ namespace Sea.Controls
                 }
             }
         }
+
+        public Canvas PathCanvas { get; } = new Canvas();
 
         private void Ship_DirectionChanged()
         {

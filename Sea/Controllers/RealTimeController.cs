@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Threading;
-using Sea.Models;
 using Sea.Utils;
 
 namespace Sea.Controllers
@@ -12,7 +11,9 @@ namespace Sea.Controllers
         private DateTime _prevTime = DateTime.MinValue;
         private static readonly TimeSpan _bigTimeSpan = TimeSpan.FromDays(1);
         private readonly ShipTimeController _shipTimeController;
-        private readonly TimeLimiter _limiter = new TimeLimiter(TimeSpan.FromMinutes(1));
+        private readonly TimeLimiter _refreshOrdersLimiter = new TimeLimiter(TimeSpan.FromMinutes(1));
+        private readonly TimeLimiter _saveGameLimiter = new TimeLimiter(TimeSpan.FromMinutes(1));
+        private int _saveCounter;
 
         public RealTimeController(AppContext appContext)
         {
@@ -34,9 +35,17 @@ namespace Sea.Controllers
             }
             _prevTime = DateTime.Now;
 
-            _limiter.Do(() =>
+            _refreshOrdersLimiter.Do(() =>
             {
                 _appContext.OrdersController.Refresh();
+            });
+
+            _saveGameLimiter.Do(() =>
+            {
+                if (_saveCounter > 1)
+                    _appContext.SaveGame();
+
+                _saveCounter++;
             });
         }
     }

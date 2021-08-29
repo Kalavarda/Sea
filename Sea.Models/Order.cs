@@ -8,14 +8,14 @@
         public uint OrderOptionId { get; set; }
 
         /// <summary>
-        /// Сколько единиц товара уже доставлено
+        /// Сколько килограммов товара уже доставлено
         /// </summary>
-        public uint DeliveredCount { get; set; }
+        public float DeliveredMass { get; set; }
 
         /// <summary>
-        /// Сколько единиц товара нужно доставить
+        /// Сколько килограммов товара нужно доставить
         /// </summary>
-        public uint Count { get; set; }
+        public float Mass { get; set; }
 
         /// <summary>
         /// Награда за полное выполнение заказа

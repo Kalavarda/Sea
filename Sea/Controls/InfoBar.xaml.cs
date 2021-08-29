@@ -1,6 +1,7 @@
 ﻿using System;
 using Sea.Models;
 using Sea.Models.Geometry;
+using Sea.Models.Utils;
 
 namespace Sea.Controls
 {
@@ -23,6 +24,9 @@ namespace Sea.Controls
                 {
                     _game.World.Ship.Fuel.ValueChanged += Fuel_ValueChanged;
                     Fuel_ValueChanged(_game.World.Ship.Fuel);
+
+                    _game.World.Ship.GoodsMass.ValueChanged += GoodsMass_ValueChanged;
+                    GoodsMass_ValueChanged(_game.World.Ship.GoodsMass);
 
                     _game.Economy.MoneyChanged += Economy_MoneyChanged;
                     Economy_MoneyChanged();
@@ -55,12 +59,17 @@ namespace Sea.Controls
 
         private void Economy_MoneyChanged()
         {
-            _tbMoney.Text = Math.Round(_game.Economy.Money).ToString("### ### ###");
+            _tbMoney.Text = _game.Economy.Money.ToStr();
+        }
+
+        private void GoodsMass_ValueChanged(RangeF mass)
+        {
+            _tbGoodsMass.Text = $"{mass.Value.ToStr()} / {mass.Max.ToStr()}";
         }
 
         private void Fuel_ValueChanged(RangeF fuel)
         {
-            _tbFuel.Text = $"{MathF.Round(fuel.Value):### ### ###} / {MathF.Round(fuel.Max):### ### ###}";
+            _tbFuel.Text = $"{fuel.Value.ToStr()} / {fuel.Max.ToStr()}";
         }
 
         private void MouseWorldPosition_Changed(PointF mousePos)

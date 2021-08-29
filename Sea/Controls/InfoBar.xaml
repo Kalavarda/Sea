@@ -13,6 +13,9 @@
         <Border ToolTip="Деньги" Style="{StaticResource BorderStyle}">
             <TextBlock x:Name="_tbMoney" Text="123 456" Foreground="White"/>
         </Border>
+        <Border ToolTip="Масса товара" Style="{StaticResource BorderStyle}">
+            <TextBlock x:Name="_tbGoodsMass" Text="123 456" Foreground="Aqua"/>
+        </Border>
         <Border ToolTip="Топливо" Style="{StaticResource BorderStyle}">
             <TextBlock x:Name="_tbFuel" Text="123 456" Foreground="Yellow"/>
         </Border>

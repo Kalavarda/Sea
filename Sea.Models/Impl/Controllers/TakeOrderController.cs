@@ -23,13 +23,29 @@ namespace Sea.Models.Impl.Controllers
             _orderCostCalculator = orderCostCalculator ?? throw new ArgumentNullException(nameof(orderCostCalculator));
         }
 
-        public void TakeOrder(uint goodsId, uint count)
+        public void TakeOrder(uint goodsId, float mass)
         {
-            var distance = _game.World.Ship.Position.DistanceTo(_port.Position);
-            if (distance > MinPortDistance)
+            if (mass <= 0)
+                throw new Exception("Некорректное количество товара");
+
+            var free = _game.World.Ship.GoodsMass.Max - _game.World.Ship.GoodsMass.Value;
+            if (free < mass)
+                throw new Exception("Перегруз");
+
+            var distanceToShip = _game.World.Ship.Position.DistanceTo(_port.Position);
+            if (distanceToShip > MinPortDistance)
                 throw new Exception("Слишком большое расстояние до порта");
 
-            throw new NotImplementedException();
+            var orderOption = _game.Economy.OrderOptions.First(oo => oo.SourcePortId == _port.Id && oo.GoodsId == goodsId);
+            var destPort = _game.World.Islands.SelectMany(i => i.Ports).First(p => p.Id == orderOption.DestPortId);
+            var orderDistance = destPort.Position.DistanceTo(_port.Position);
+            _game.Economy.Add(new Order
+            {
+                OrderOptionId = orderOption.Id,
+                Cost = _orderCostCalculator.GetCost(mass, orderDistance),
+                Mass = mass
+            });
+            _game.World.Ship.GoodsMass.Value += mass;
         }
 
         public IEnumerable<Goods> GetAvailableGoods()
@@ -48,16 +64,21 @@ namespace Sea.Models.Impl.Controllers
                 .Where(oo => oo.GoodsId == goodsId)
                 .First(oo => oo.SourcePortId == _port.Id);
 
-            var p1 = _game.World.Islands.SelectMany(i => i.Ports).First(p => p.Id == option.SourcePortId);
-            var p2 = _game.World.Islands.SelectMany(i => i.Ports).First(p => p.Id == option.DestPortId);
-            var path = _pathFinder.Find(p1.Position, p2.Position);
+            var port1 = _game.World.Islands.SelectMany(i => i.Ports).First(p => p.Id == option.SourcePortId);
+            var port2 = _game.World.Islands.SelectMany(i => i.Ports).First(p => p.Id == option.DestPortId);
+            var path = _pathFinder.Find(port1, port2);
             return path.Length;
         }
 
-        public decimal GetCost(uint goodsId, uint count)
+        public decimal GetCost(uint goodsId, float mass)
         {
             var distance = GetDistance(goodsId);
-            return _orderCostCalculator.GetCost(count, distance);
+            return _orderCostCalculator.GetCost(mass, distance);
+        }
+
+        public float GetMaxAllowedMass()
+        {
+            return _game.World.Ship.GoodsMass.Max - _game.World.Ship.GoodsMass.Value;
         }
     }
 }

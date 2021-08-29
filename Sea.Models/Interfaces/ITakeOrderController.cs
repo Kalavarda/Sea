@@ -4,7 +4,10 @@ namespace Sea.Models.Interfaces
 {
     public interface ITakeOrderController
     {
-        void TakeOrder(uint goodsId, uint count);
+        /// <summary>
+        /// Взяться за доставку указанной массы товара
+        /// </summary>
+        void TakeOrder(uint goodsId, float mass);
 
         /// <summary>
         /// Список видов, которые можно купить
@@ -19,6 +22,11 @@ namespace Sea.Models.Interfaces
         /// <summary>
         /// Плата за доставку указанного кол-ва товаров
         /// </summary>
-        decimal GetCost(uint goodsId, uint count);
+        decimal GetCost(uint goodsId, float mass);
+
+        /// <summary>
+        /// Какая масса влезет на судно
+        /// </summary>
+        float GetMaxAllowedMass();
     }
 }

@@ -5,14 +5,14 @@ namespace Sea.Models.Impl
 {
     public class OrderCostCalculator: IOrderCostCalculator
     {
-        private const float DistancePower = 1.25f;
+        private const float DistancePower = 1.125f;
 
-        private const decimal KilometerCost = 10;
+        private const float KilometerCost = 20;
 
-        public decimal GetCost(uint count, float distance)
+        public decimal GetCost(float mass, float distance)
         {
-            var oneItemCost = KilometerCost * (decimal)MathF.Pow(distance / 1000, DistancePower);
-            return count * oneItemCost;
+            var oneItemCost = KilometerCost * MathF.Pow(distance / 1000, DistancePower);
+            return (decimal)(mass * oneItemCost);
         }
     }
 }

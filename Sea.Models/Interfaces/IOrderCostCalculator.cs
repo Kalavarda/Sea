@@ -2,6 +2,6 @@
 {
     public interface IOrderCostCalculator
     {
-        decimal GetCost(uint count, float distance);
+        decimal GetCost(float mass, float distance);
     }
 }

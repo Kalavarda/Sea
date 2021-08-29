@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Sea.Controls.OrdersControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:Sea.Controls">
+    <UserControl.Resources>
+        <controls:OrderConverter x:Key="_orderConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListBox x:Name="_listBox" SelectionChanged="_listBox_OnSelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource _orderConverter}}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <CheckBox x:Name="_cbShowPath" Content="Показывать путь" Grid.Row="1" Unchecked="ShowPath_OnChecked" Checked="ShowPath_OnChecked"/>
+
+        <controls:OrderControl x:Name="_orderControl" Grid.Row="2"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Sea.Controls.OrderControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="_tbGoods" Grid.ColumnSpan="2"/>
+
+        <TextBlock Text="Расстояние: " Grid.Row="1"/>
+        <TextBlock x:Name="_tbDistance" Grid.Row="1" Grid.Column="1"/>
+    </Grid>
+</UserControl>

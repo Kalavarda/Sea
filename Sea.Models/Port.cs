@@ -3,7 +3,7 @@ using Sea.Models.Geometry;
 
 namespace Sea.Models
 {
-    public class Port
+    public class Port : IHasPosition
     {
         public uint Id { get; set; }
 

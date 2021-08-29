@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Sea.Models;
 using Sea.Models.Interfaces;
+using Sea.Models.Utils;
 
 namespace Sea.Controls
 {
@@ -36,7 +37,7 @@ namespace Sea.Controls
         {
             try
             {
-                _takeOrderController.TakeOrder(SelectedGoods.Id, uint.Parse(_tbCount.Text));
+                _takeOrderController.TakeOrder(SelectedGoods.Id, float.Parse(_tbMass.Text));
                 RefreshGoods();
             }
             catch (Exception error)
@@ -49,8 +50,9 @@ namespace Sea.Controls
         {
             if (SelectedGoods != null)
             {
-                _tbDistance.Text = _takeOrderController.GetDistance(SelectedGoods.Id).ToString("### ### ###").Trim();
-                _tbCostByItem.Text = Math.Round(_takeOrderController.GetCost(SelectedGoods.Id, 1), 1).ToString("### ### ###.#").Trim();
+                _tbDistance.Text = _takeOrderController.GetDistance(SelectedGoods.Id).ToStr();
+                _tbCostByItem.Text = _takeOrderController.GetCost(SelectedGoods.Id, 1).ToStr();
+                _tbMass.Text = _takeOrderController.GetMaxAllowedMass().ToStr();
                 _btn.IsEnabled = true;
                 return;
             }

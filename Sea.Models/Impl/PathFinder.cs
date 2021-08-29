@@ -11,5 +11,10 @@ namespace Sea.Models.Impl
 
             return new Path(new []{ source, target });
         }
+
+        public Path Find(IHasPosition source, IHasPosition target)
+        {
+            return Find(source.Position, target.Position);
+        }
     }
 }

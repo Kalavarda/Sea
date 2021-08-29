@@ -39,6 +39,10 @@ namespace Sea.Windows
             */
 
             ShowToolWindow(new ShipDashboard { Ship = _appContext.Game.World.Ship }, 300, 300, string.Empty);
+
+            var ordersControl = new OrdersControl(_appContext);
+            new ShowPathController(ordersControl, _worldControl.PathCanvas);
+            ShowToolWindow(ordersControl, 300, 300, "Заказы");
         }
 
         internal void ShowToolWindow(UserControl content, int width, int height, string title)

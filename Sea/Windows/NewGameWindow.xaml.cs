@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
 using Sea.Models.Interfaces;
 
@@ -19,7 +18,7 @@ namespace Sea.Windows
             _appContext = appContext ?? throw new ArgumentNullException(nameof(appContext));
         }
 
-        private async void OnCreateClick(object sender, RoutedEventArgs e)
+        private void OnCreateClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -35,7 +34,7 @@ namespace Sea.Windows
                     FuelPrice = decimal.Parse(_tbFuelPrice.Text)
                 };
                 _appContext.Game = _appContext.GameFactory.Create(gameParameters);
-                await _appContext.GameRepository.Save(_appContext.Game, CancellationToken.None);
+                _appContext.GameRepository.Save(_appContext.Game);
 
                 DialogResult = true;
             }

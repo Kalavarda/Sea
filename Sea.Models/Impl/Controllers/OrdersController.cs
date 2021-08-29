@@ -33,7 +33,13 @@ namespace Sea.Models.Impl.Controllers
 
                 var g = _game.Economy.Goods[Rand.Next(_game.Economy.Goods.Length)];
                 while (orderOptions.Any(oo => oo.GoodsId == g.Id && (oo.SourcePortId == p1.Id || oo.SourcePortId == p2.Id || oo.DestPortId == p1.Id || oo.DestPortId == p2.Id)))
+                {
                     g = _game.Economy.Goods[Rand.Next(_game.Economy.Goods.Length)];
+                    p1 = ports[Rand.Next(ports.Length)];
+                    p2 = ports[Rand.Next(ports.Length)];
+                    while (p2 == p1)
+                        p2 = ports[Rand.Next(ports.Length)];
+                }
 
                 orderOptions.Add(new OrderOption
                 {

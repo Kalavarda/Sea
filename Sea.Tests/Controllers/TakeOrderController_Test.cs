@@ -69,6 +69,11 @@ namespace Sea.Tests.Controllers
                 Id = 11,
                 Position = new PointF { X = portX, Y = portY }
             };
+            var port2 = new Port
+            {
+                Id = 22,
+                Position = new PointF { X = portX, Y = portY }
+            };
 
             var game = new Game
             {
@@ -76,11 +81,12 @@ namespace Sea.Tests.Controllers
                 {
                     Islands = new[]
                     {
-                        new Island { Ports = new [] { port }}
+                        new Island { Ports = new [] { port, port2 }}
                     },
                     Ship = new Ship
                     {
-                        Position = new PointF { X = shipX, Y = shipY }
+                        Position = new PointF { X = shipX, Y = shipY },
+                        GoodsMass = new RangeF { Max = 10 }
                     }
                 },
                 Economy = new Economy
@@ -88,7 +94,7 @@ namespace Sea.Tests.Controllers
                     Goods = new[] { g1 },
                     OrderOptions = new []
                     {
-                        new OrderOption { Id = 1, GoodsId = g1.Id, SourcePortId = port.Id, DestPortId = 22 },
+                        new OrderOption { Id = 1, GoodsId = g1.Id, SourcePortId = port.Id, DestPortId = port2.Id },
                     }
                 }
             };
@@ -104,6 +110,129 @@ namespace Sea.Tests.Controllers
                 {
                     controller.TakeOrder(g1.Id, 1);
                 });
+        }
+
+        [TestCase(50, 30, 15, true)]
+        [TestCase(50, 0, 50, true)]
+        [TestCase(50, 0, 50.1f, false)]
+        [TestCase(50, 30, 20.1f, false)]
+        public void TakeOrder_CheckMass_Test(float maxMass, float currMass, float goodsCount, bool allow)
+        {
+            var g1 = new Goods { Id = 12 };
+
+            var port = new Port
+            {
+                Id = 11,
+                Position = new PointF()
+            };
+            var port2 = new Port
+            {
+                Id = 22,
+                Position = new PointF()
+            };
+
+            var game = new Game
+            {
+                World = new World
+                {
+                    Islands = new[]
+                    {
+                        new Island { Ports = new [] { port, port2 }}
+                    },
+                    Ship = new Ship
+                    {
+                        GoodsMass = new RangeF { Max = maxMass, Value = currMass },
+                        Position = new PointF()
+                    }
+                },
+                Economy = new Economy
+                {
+                    Goods = new[] { g1 },
+                    OrderOptions = new []
+                    {
+                        new OrderOption { Id = 1, GoodsId = g1.Id, SourcePortId = port.Id, DestPortId = port2.Id },
+                    }
+                }
+            };
+
+            var controller = new TakeOrderController(game, port, _pathFinder.Object, _orderCostCalculator.Object);
+
+            Assert.Throws<Exception>(() =>
+            {
+                controller.TakeOrder(g1.Id, 0);
+            });
+
+            Assert.Throws<Exception>(() =>
+            {
+                controller.TakeOrder(g1.Id, -1);
+            });
+
+            if (allow)
+                Assert.DoesNotThrow(() =>
+                {
+                    controller.TakeOrder(g1.Id, goodsCount);
+                });
+            else
+                Assert.Throws<Exception>(() =>
+                {
+                    controller.TakeOrder(g1.Id, goodsCount);
+                });
+        }
+
+        [Test]
+        public void TakeOrder_Test()
+        {
+            _orderCostCalculator
+                .Setup(cc => cc.GetCost(It.IsAny<float>(), It.IsAny<float>()))
+                .Returns(1234);
+
+            var g1 = new Goods { Id = 12 };
+
+            var port1 = new Port
+            {
+                Id = 11,
+                Position = new PointF()
+            };
+            var port2 = new Port
+            {
+                Id = 11,
+                Position = new PointF()
+            };
+
+            var game = new Game
+            {
+                World = new World
+                {
+                    Islands = new[]
+                    {
+                        new Island { Ports = new [] { port1, port2 }}
+                    },
+                    Ship = new Ship
+                    {
+                        Position = new PointF(),
+                        GoodsMass = new RangeF { Max = 100 }
+                    }
+                },
+                Economy = new Economy
+                {
+                    Goods = new[] { g1 },
+                    OrderOptions = new[]
+                    {
+                        new OrderOption { Id = 123, GoodsId = g1.Id, SourcePortId = port1.Id, DestPortId = port2.Id },
+                    },
+                    Orders = new Order[0]
+                }
+            };
+
+            var controller = new TakeOrderController(game, port1, _pathFinder.Object, _orderCostCalculator.Object);
+            controller.TakeOrder(g1.Id, 50);
+
+            var order = game.Economy.Orders.Single();
+            Assert.AreEqual(1234, order.Cost);
+            Assert.AreEqual(0, order.DeliveredMass);
+            Assert.AreEqual(50, order.Mass);
+            Assert.AreEqual(123, order.OrderOptionId);
+            Assert.AreEqual(50, game.World.Ship.GoodsMass.Value);
         }
     }
 }

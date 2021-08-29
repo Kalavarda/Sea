@@ -32,10 +32,27 @@ namespace Sea.Factories
                     Height = parameters.WorldSize,
                 },
                 Islands = islands,
-                Ship = new Ship(),
+                Ship = CreateShip()
             };
             world.Ship.Position = GetFreePosition(world);
             return world;
+        }
+
+        private static Ship CreateShip()
+        {
+            var ship = new Ship
+            {
+                Fuel = new RangeF { Max = 10 },
+                GoodsMass = new RangeF { Max = 100 },
+                Engine = new Engine
+                {
+                    FuelConsumption = 0.05f,
+                    Rotation = new RangeF(-MathF.PI / 12, MathF.PI / 12),
+                    Acceleration = new RangeF(-0.25f, 1)
+                }
+            };
+            ship.Fuel.Value = ship.Fuel.Max / 2;
+            return ship;
         }
 
         private static PointF GetFreePosition(World world)
