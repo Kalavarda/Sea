@@ -13,5 +13,10 @@ namespace Sea
                 msg += Environment.NewLine + Environment.NewLine + exception.StackTrace;
             MessageBox.Show(msg, exception.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        public static string GetResourceFullFileName(string fileName)
+        {
+            return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", fileName);
+        }
     }
 }

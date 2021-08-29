@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sea.Models.Geometry;
 using Sea.Models.Interfaces;
 
 namespace Sea.Models.Impl.Controllers
 {
     public class TakeOrderController: ITakeOrderController
     {
+        internal const float MinPortDistance = 10;
+
         private readonly Game _game;
         private readonly Port _port;
         private readonly IPathFinder _pathFinder;
@@ -22,6 +25,10 @@ namespace Sea.Models.Impl.Controllers
 
         public void TakeOrder(uint goodsId, uint count)
         {
+            var distance = _game.World.Ship.Position.DistanceTo(_port.Position);
+            if (distance > MinPortDistance)
+                throw new Exception("Слишком большое расстояние до порта");
+
             throw new NotImplementedException();
         }
 

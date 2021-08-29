@@ -52,11 +52,11 @@ namespace Sea.Models
 
                 _speed = value;
 
-                SpeedChanged?.Invoke();
+                SpeedChanged?.Invoke(_speed);
             }
         }
 
-        public event Action SpeedChanged;
+        public event Action<float> SpeedChanged;
 
         public RangeF Fuel { get; set; } = new RangeF { Max = 10, Value = 10 };
     }

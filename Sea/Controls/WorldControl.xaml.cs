@@ -22,6 +22,8 @@ namespace Sea.Controls
             Height = 1_000_000_000
         };
 
+        public ViewInfo ViewInfo { get; } = new ViewInfo();
+
         public World World
         {
             get => _world;
@@ -72,7 +74,19 @@ namespace Sea.Controls
         {
             InitializeComponent();
             new ZoomController(_root, _canvas, _scaleTransform, _translateTransform);
-            new DragAndDropController(_root, _translateTransform);
+            new DragAndDropController(_root, _translateTransform, _scaleTransform);
+
+            _scaleTransform.Changed += _transform_Changed;
+            _translateTransform.Changed += _transform_Changed;
+        }
+
+        private void _transform_Changed(object sender, EventArgs e)
+        {
+            ViewInfo.Zoom.Value = (float)_scaleTransform.ScaleX;
+
+            var screenCenter = new Point(ActualWidth / 2, ActualHeight / 2);
+            var xy = _canvas.PointFromScreen(screenCenter);
+            ViewInfo.Center.Set((float)xy.X, (float)xy.Y);
         }
 
         private void _canvas_OnMouseMove(object sender, MouseEventArgs e)
@@ -82,5 +96,12 @@ namespace Sea.Controls
             var worldPoint = _canvas.PointFromScreen(screenPoint);
             MouseWorldPosition.Set((float)worldPoint.X, (float)worldPoint.Y);
         }
+    }
+
+    public class ViewInfo
+    {
+        public RangeF Zoom { get; } = new RangeF { Min = 0, Max = 200 };
+
+        public PointF Center { get; set; } = new PointF();
     }
 }

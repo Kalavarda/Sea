@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Sea.Models;
+using Sea.Models.Geometry;
 
 namespace Sea.Controls
 {
@@ -23,7 +24,7 @@ namespace Sea.Controls
                     RecreateShape();
 
                     _ship.Position.Changed += Position_Changed;
-                    Position_Changed();
+                    Position_Changed(_ship.Position);
                 }
             }
         }
@@ -44,7 +45,7 @@ namespace Sea.Controls
             _polygon.Points.Add(new Point(0, 3 * h));
         }
 
-        private void Position_Changed()
+        private void Position_Changed(PointF shipPos)
         {
             this.Do(() =>
             {

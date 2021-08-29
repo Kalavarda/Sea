@@ -7,7 +7,7 @@ namespace Sea.Models.Impl
     {
         private const float DistancePower = 1.25f;
 
-        private const decimal KilometerCost = 100;
+        private const decimal KilometerCost = 10;
 
         public decimal GetCost(uint count, float distance)
         {

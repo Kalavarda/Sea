@@ -13,10 +13,11 @@ namespace Sea.Controllers
         private Point _startPosition;
         private Point _startTranslate;
 
-        public DragAndDropController(UIElement uiElement, TranslateTransform translateTransform)
+        public DragAndDropController(UIElement uiElement, TranslateTransform translateTransform, ScaleTransform scaleTransform)
         {
             _uiElement = uiElement ?? throw new ArgumentNullException(nameof(uiElement));
             _translateTransform = translateTransform ?? throw new ArgumentNullException(nameof(translateTransform));
+            _scaleTransform = scaleTransform ?? throw new ArgumentNullException(nameof(scaleTransform));
 
             _uiElement.MouseDown += UiElement_MouseDown;
             _uiElement.MouseMove += UiElement_MouseMove;
@@ -28,11 +29,11 @@ namespace Sea.Controllers
             if (e.ChangedButton != MouseButton.Middle)
                 return;
 
-            _startPosition = e.GetPosition(_uiElement);
-            _uiElement.CaptureMouse();
-
             _startTranslate.X = _translateTransform.X;
             _startTranslate.Y = _translateTransform.Y;
+
+            _startPosition = e.GetPosition(_uiElement);
+            _uiElement.CaptureMouse();
         }
 
         private void UiElement_MouseMove(object sender, MouseEventArgs e)
@@ -43,6 +44,8 @@ namespace Sea.Controllers
             var position = e.GetPosition(_uiElement);
             var dx = position.X - _startPosition.X;
             var dy = position.Y - _startPosition.Y;
+            //dx *= _scaleTransform.ScaleX;
+            //dy *= _scaleTransform.ScaleY;
             _translateTransform.X = _startTranslate.X + dx;
             _translateTransform.Y = _startTranslate.Y + dy;
         }
@@ -52,7 +55,8 @@ namespace Sea.Controllers
             if (e.ChangedButton != MouseButton.Middle)
                 return;
 
-            _uiElement.ReleaseMouseCapture();
+            if (_uiElement.IsMouseCaptured)
+                _uiElement.ReleaseMouseCapture();
         }
     }
 }

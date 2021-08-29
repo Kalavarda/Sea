@@ -8,9 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Boat.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Sea.Factories\Sea.Factories.csproj" />
     <ProjectReference Include="..\Sea.Models\Sea.Models.csproj" />
     <ProjectReference Include="..\Sea.Repositories\Sea.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Boat.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

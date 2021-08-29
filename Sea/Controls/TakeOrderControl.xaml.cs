@@ -42,7 +42,6 @@ namespace Sea.Controls
             catch (Exception error)
             {
                 App.ShowError(error);
-                throw;
             }
         }
 

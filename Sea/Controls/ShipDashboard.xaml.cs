@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Sea.Models;
+using Sea.Models.Geometry;
 
 namespace Sea.Controls
 {
@@ -28,10 +29,10 @@ namespace Sea.Controls
                     Acceleration_ValueChanged(_ship.Engine.Acceleration);
 
                     _ship.SpeedChanged += _ship_SpeedChanged;
-                    _ship_SpeedChanged();
+                    _ship_SpeedChanged(_ship.Speed);
 
                     _ship.Position.Changed += Position_Changed;
-                    Position_Changed();
+                    Position_Changed(_ship.Position);
 
                     _ship.Engine.Rotation.MinChanged += Rotation_Changed;
                     _ship.Engine.Rotation.MaxChanged += Rotation_Changed;
@@ -51,7 +52,7 @@ namespace Sea.Controls
             _sliderR.Maximum = rotation.Max * SliderRatio;
         }
 
-        private void _ship_SpeedChanged()
+        private void _ship_SpeedChanged(float speed)
         {
             _tbSpeed.Text = MathF.Round(_ship.Speed, 1) + " м/с";
         }
@@ -62,7 +63,7 @@ namespace Sea.Controls
             _sliderA.Maximum = acceleration.Max * SliderRatio;
         }
 
-        private void Position_Changed()
+        private void Position_Changed(PointF pos)
         {
             _tbPosition.Text = $"{MathF.Round(_ship.Position.X):### ### ### ###} ; {MathF.Round(_ship.Position.Y):### ### ### ###}";
         }

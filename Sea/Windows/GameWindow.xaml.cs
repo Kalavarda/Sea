@@ -24,6 +24,7 @@ namespace Sea.Windows
             _infoBar.WorldControl = _worldControl;
 
             new RealTimeController(_appContext);
+            new SoundController(_shipMedia, appContext.Game.World.Ship, _worldControl.ViewInfo);
 
             Loaded += GameWindow_Loaded;
         }
@@ -31,6 +32,11 @@ namespace Sea.Windows
         private void GameWindow_Loaded(object sender, RoutedEventArgs e)
         {
             new TradeController(_appContext, this);
+            /*
+            var player = new SoundPlayer(@"C:\_\08\28\Sounds\boat-outboard-motor-01.wav");
+            player.Load();
+            player.PlayLooping();
+            */
 
             ShowToolWindow(new ShipDashboard { Ship = _appContext.Game.World.Ship }, 300, 300, string.Empty);
         }

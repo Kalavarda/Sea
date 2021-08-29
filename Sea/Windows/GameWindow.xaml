@@ -18,6 +18,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <MediaElement x:Name="_shipMedia"/>
+
         <controls:WorldControl x:Name="_worldControl" Grid.RowSpan="2"/>
         <controls:InfoBar x:Name="_infoBar"/>
     </Grid>

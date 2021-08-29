@@ -30,7 +30,7 @@ namespace Sea.Controllers
             var pointAtCanvas1 = e.GetPosition(_canvas);
 
             _scaleTransform.ScaleX *= d;
-            _scaleTransform.ScaleY *= d;
+            _scaleTransform.ScaleY = _scaleTransform.ScaleX;
 
             var pointAtCanvas2 = e.GetPosition(_canvas);
             _translateTransform.X += (pointAtCanvas2.X - pointAtCanvas1.X) * _scaleTransform.ScaleX;

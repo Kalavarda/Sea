@@ -1,5 +1,6 @@
 ﻿using System;
 using Sea.Models;
+using Sea.Models.Geometry;
 
 namespace Sea.Controls
 {
@@ -42,7 +43,7 @@ namespace Sea.Controls
                 if (_worldControl != null)
                 {
                     _worldControl.MouseWorldPosition.Changed += MouseWorldPosition_Changed;
-                    MouseWorldPosition_Changed();
+                    MouseWorldPosition_Changed(_worldControl.MouseWorldPosition);
                 }
             }
         }
@@ -57,12 +58,12 @@ namespace Sea.Controls
             _tbMoney.Text = Math.Round(_game.Economy.Money).ToString("### ### ###");
         }
 
-        private void Fuel_ValueChanged(Models.RangeF fuel)
+        private void Fuel_ValueChanged(RangeF fuel)
         {
             _tbFuel.Text = $"{MathF.Round(fuel.Value):### ### ###} / {MathF.Round(fuel.Max):### ### ###}";
         }
 
-        private void MouseWorldPosition_Changed()
+        private void MouseWorldPosition_Changed(PointF mousePos)
         {
             _tbMouseWorldPos.Text = $"{MathF.Round(_worldControl.MouseWorldPosition.X):### ### ###}; {MathF.Round(_worldControl.MouseWorldPosition.Y):### ### ###}";
         }

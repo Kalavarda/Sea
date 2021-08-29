@@ -43,7 +43,7 @@ namespace Sea.Models.Geometry
 
         public event Action XChanged;
         public event Action YChanged;
-        public event Action Changed;
+        public event Action<PointF> Changed;
 
         public void Set(float x, float y)
         {
@@ -53,7 +53,7 @@ namespace Sea.Models.Geometry
             X = x;
             Y = y;
 
-            Changed?.Invoke();
+            Changed?.Invoke(this);
         }
     }
 
