@@ -42,6 +42,7 @@ namespace Sea.Factories
         {
             var ship = new Ship
             {
+                Size = new SizeF { Width = 1, Height = 2 },
                 Fuel = new RangeF { Max = 10 },
                 GoodsMass = new RangeF { Max = 100 },
                 Engine = new Engine

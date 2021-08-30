@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Sea.Models;
+using Sea.Models.Geometry;
 using Sea.Models.Impl.Controllers;
 
 namespace Sea.Tests.Controllers
@@ -21,6 +22,13 @@ namespace Sea.Tests.Controllers
                     Ship = new Ship
                     {
                         Fuel = new RangeF { Max = maxFuel, Value = currentFuel }
+                    },
+                    Islands = new []
+                    {
+                        new Island
+                        {
+                            Ports = new [] { new Port() }
+                        }
                     }
                 },
                 Economy = new Economy
@@ -36,6 +44,52 @@ namespace Sea.Tests.Controllers
                 Assert.DoesNotThrow(() => { controller.Buy(buyCount); });
             else
                 Assert.Throws<Exception>(() => { controller.Buy(buyCount); });
+        }
+
+        [TestCase(0, 0, false)]
+        [TestCase(300, 200, true)]
+        [TestCase(309, 200, true)]
+        [TestCase(311, 200, false)]
+        public void Buy_CheckDistance_Test(float shipX, float shipY, bool allow)
+        {
+            var port1 = new Port
+            {
+                Position = new PointF { X = -300, Y = -200 }
+            };
+            var port2 = new Port
+            {
+                Position = new PointF { X = 300, Y = 200 }
+            };
+            var game = new Game
+            {
+                World = new World
+                {
+                    Ship = new Ship
+                    {
+                        Fuel = new RangeF { Max = 100 },
+                        Position = new PointF { X = shipX, Y = shipY }
+                    },
+                    Islands = new []
+                    {
+                        new Island
+                        {
+                            Ports = new [] { port1, port2 }
+                        }
+                    }
+                },
+                Economy = new Economy
+                {
+                    Money = 100,
+                    FuelPrice = 10
+                }
+            };
+            
+            var controller = new BuyFuelController(game);
+
+            if (allow)
+                Assert.DoesNotThrow(() => { controller.Buy(1); });
+            else
+                Assert.Throws<Exception>(() => { controller.Buy(1); });
         }
 
         [TestCase(20, 30, 1000, 10)]
@@ -74,6 +128,13 @@ namespace Sea.Tests.Controllers
                     Ship = new Ship
                     {
                         Fuel = new RangeF { Max = maxFuel, Value = currentFuel }
+                    },
+                    Islands = new []
+                    {
+                        new Island
+                        {
+                            Ports = new [] { new Port() }
+                        }
                     }
                 },
                 Economy = new Economy

@@ -3,11 +3,11 @@ using Sea.Models.Geometry;
 
 namespace Sea.Models
 {
-    public class Port : IHasPosition
+    public class Port : IHasPosition, IIdentifable
     {
         public uint Id { get; set; }
 
-        public PointF Position { get; set; }
+        public PointF Position { get; set; } = new PointF();
 
         public void RaiseTradeFuel()
         {

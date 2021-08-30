@@ -62,6 +62,10 @@ namespace Sea.Tests.Controllers
         [TestCase(300, 200, 308, 208, false)]
         public void TakeOrder_CheckDistance_Test(float portX, float portY, float shipX, float shipY, bool allow)
         {
+            _pathFinder
+                .Setup(pf => pf.Find(It.IsAny<IHasPosition>(), It.IsAny<IHasPosition>()))
+                .Returns(Path.Empty);
+
             var g1 = new Goods { Id = 12 };
 
             var port = new Port
@@ -118,6 +122,10 @@ namespace Sea.Tests.Controllers
         [TestCase(50, 30, 20.1f, false)]
         public void TakeOrder_CheckMass_Test(float maxMass, float currMass, float goodsCount, bool allow)
         {
+            _pathFinder
+                .Setup(pf => pf.Find(It.IsAny<IHasPosition>(), It.IsAny<IHasPosition>()))
+                .Returns(Path.Empty);
+
             var g1 = new Goods { Id = 12 };
 
             var port = new Port
@@ -224,6 +232,8 @@ namespace Sea.Tests.Controllers
                 }
             };
 
+            new ShipGoodsMassController(game.World.Ship);
+
             var controller = new TakeOrderController(game, port1, _pathFinder.Object, _orderCostCalculator.Object);
             controller.TakeOrder(g1.Id, 50);
 
@@ -233,6 +243,9 @@ namespace Sea.Tests.Controllers
             Assert.AreEqual(50, order.Mass);
             Assert.AreEqual(123, order.OrderOptionId);
             Assert.AreEqual(50, game.World.Ship.GoodsMass.Value);
+
+            Assert.AreEqual(g1.Id, game.World.Ship.OrderItems.Single().GoodsId);
+            Assert.AreEqual(50, game.World.Ship.OrderItems.Single().Mass);
         }
     }
 }

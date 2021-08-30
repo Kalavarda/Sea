@@ -13,5 +13,14 @@ namespace Sea.Models.Utils
             list.Add(value);
             return list.ToArray();
         }
+
+        public static T[] Remove<T>(this T[] array, T value)
+        {
+            if (array == null) throw new ArgumentNullException(nameof(array));
+
+            var list = array.ToList();
+            list.Remove(value);
+            return list.ToArray();
+        }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sea.Models.Geometry;
 using Sea.Models.Utils;
 
 namespace Sea.Models
@@ -54,6 +57,61 @@ namespace Sea.Models
         {
             if (order == null) throw new ArgumentNullException(nameof(order));
             Orders = Orders.Add(order);
+        }
+
+        public void Remove(Order order)
+        {
+            if (order == null) throw new ArgumentNullException(nameof(order));
+            Orders = Orders.Remove(order);
+        }
+    }
+
+    public static class EconomyExtensions
+    {
+        /// <summary>
+        /// Возвращает заказы, которые должны быть сданы в указанном порту
+        /// </summary>
+        public static IReadOnlyCollection<Order> GetDestOrders(this Economy economy, uint portId)
+        {
+            if (economy == null) throw new ArgumentNullException(nameof(economy));
+
+            var orders = new List<Order>();
+            foreach (var order in economy.Orders)
+            {
+                var option = economy.OrderOptions.First(oo => oo.Id == order.OrderOptionId);
+                if (option.DestPortId == portId)
+                    orders.Add(order);
+            }
+            return orders;
+        }
+
+        /// <summary>
+        /// Возвращает заказы, которые должны быть сданы в указанном порту
+        /// </summary>
+        public static IReadOnlyCollection<Order> GetDestOrders(this Economy economy, IIdentifable i)
+        {
+            return GetDestOrders(economy, i.Id);
+        }
+
+        /// <summary>
+        /// Возвращает товар на судне, относящийся к указанному заказу
+        /// </summary>
+        public static OrderItem GetOrderItem(this Game game, Order order)
+        {
+            var option = game.Economy.OrderOptions.First(oo => oo.Id == order.OrderOptionId);
+
+            return game.World.Ship.OrderItems
+                .FirstOrDefault(orderItem => orderItem.GoodsId == option.GoodsId);
+        }
+
+        /// <summary>
+        /// Находит ближайший (по прямой) к судну порт
+        /// </summary>
+        public static Port GetNearestPort(this Game game)
+        {
+            return game.World.Islands.SelectMany(i => i.Ports)
+                .OrderBy(p => p.Position.DistanceTo(game.World.Ship.Position))
+                .FirstOrDefault();
         }
     }
 }

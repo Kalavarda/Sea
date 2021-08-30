@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using Sea.Models.Geometry;
+using Sea.Models.Utils;
 
 namespace Sea.Models
 {
@@ -11,7 +12,7 @@ namespace Sea.Models
 
         private float _speed;
         private float _direction;
-        public PointF Position { get; set; }
+        public PointF Position { get; set; } = new PointF();
 
         /// <summary>
         /// Radians
@@ -37,7 +38,7 @@ namespace Sea.Models
 
         public event Action DirectionChanged;
 
-        public SizeF Size { get; set; } = new SizeF { Width = 1, Height = 2 };
+        public SizeF Size { get; set; }
 
         public Engine Engine { get; set; }
 
@@ -64,6 +65,25 @@ namespace Sea.Models
         /// Масса товаров
         /// </summary>
         public RangeF GoodsMass { get; set; }
+
+        public OrderItem[] OrderItems { get; set; } = new OrderItem[0];
+
+        public event Action<OrderItem> OrderItemAdded;
+        public event Action<OrderItem> OrderItemRemoved;
+
+        public void Add(OrderItem orderItem)
+        {
+            if (orderItem == null) throw new ArgumentNullException(nameof(orderItem));
+            OrderItems = OrderItems.Add(orderItem);
+            OrderItemAdded?.Invoke(orderItem);
+        }
+
+        public void Remove(OrderItem orderItem)
+        {
+            if (orderItem == null) throw new ArgumentNullException(nameof(orderItem));
+            OrderItems = OrderItems.Remove(orderItem);
+            OrderItemRemoved?.Invoke(orderItem);
+        }
     }
 
     public class Engine
@@ -76,5 +96,25 @@ namespace Sea.Models
         /// Коэффициент расхода топлива
         /// </summary>
         public float FuelConsumption { get; set; }
+    }
+
+    public class OrderItem {
+        private float _mass;
+        
+        public uint GoodsId { get; set; }
+
+        public float Mass
+        {
+            get => _mass;
+            set
+            {
+                if (MathF.Abs(_mass - value) < 0.001)
+                    return;
+                _mass = value;
+                MassChanged?.Invoke(this);
+            }
+        }
+
+        public event Action<OrderItem> MassChanged;
     }
 }

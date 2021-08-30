@@ -29,6 +29,9 @@ namespace Sea
                 
                 _buyFuelController = null;
                 _ordersController = null;
+
+                if (_game != null)
+                    new ShipGoodsMassController(_game.World.Ship);
             }
         }
 
@@ -52,9 +55,14 @@ namespace Sea
             }
         }
 
-        public ITakeOrderController GetBuyController(Port port)
+        public ITakeOrderController CreateTakeOrderController(Port port)
         {
             return new TakeOrderController(Game, port, PathFinder, _orderCostCalculator);
+        }
+
+        public ICompleteOrderController CreateCompleteOrderController(Port port)
+        {
+            return new CompleteOrderController(Game, port);
         }
 
         public void SaveGame()

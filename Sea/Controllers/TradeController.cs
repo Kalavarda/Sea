@@ -26,12 +26,13 @@ namespace Sea.Controllers
 
         private void PortCompleteOrder(Port port)
         {
-            throw new NotImplementedException();
+            var controller = _appContext.CreateCompleteOrderController(port);
+            controller.Complete();
         }
 
         private void PortTakeOrder(Port port)
         {
-            var control = new TakeOrderControl(_appContext.GetBuyController(port));
+            var control = new TakeOrderControl(_appContext.CreateTakeOrderController(port));
             _gameWindow.ShowToolWindow(control, 300, 300, "Принять заказ на доставку");
         }
 

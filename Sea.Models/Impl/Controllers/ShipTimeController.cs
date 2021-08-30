@@ -1,7 +1,6 @@
 ﻿using System;
-using Sea.Models;
 
-namespace Sea.Controllers
+namespace Sea.Models.Impl.Controllers
 {
     public class ShipTimeController
     {
@@ -26,6 +25,8 @@ namespace Sea.Controllers
             _ship.Position.Set(x, y);
 
             _ship.Fuel.Value -= seconds * MathF.Pow(MathF.Abs(_ship.Engine.Acceleration.Value) * _ship.Engine.FuelConsumption, 1.5f);
+            if (_ship.Fuel.Value <= 0.001)
+                _ship.Engine.Acceleration.Value = 0;
         }
     }
 }

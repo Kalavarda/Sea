@@ -1,4 +1,5 @@
 ﻿using System;
+using Sea.Models.Geometry;
 using Sea.Models.Interfaces;
 
 namespace Sea.Models.Impl.Controllers
@@ -16,6 +17,10 @@ namespace Sea.Models.Impl.Controllers
         {
             if (fuelCount <= 0)
                 throw new Exception("Продажа топлива пока не работает");
+
+            var port = _game.GetNearestPort();
+            if (_game.World.Ship.Position.DistanceTo(port.Position) > 10)
+                throw new Exception("Порт слишком далеко");
 
             var freeSpace = _game.World.Ship.Fuel.Max - _game.World.Ship.Fuel.Value;
             if (fuelCount > freeSpace)

@@ -38,14 +38,15 @@ namespace Sea.Models.Impl.Controllers
 
             var orderOption = _game.Economy.OrderOptions.First(oo => oo.SourcePortId == _port.Id && oo.GoodsId == goodsId);
             var destPort = _game.World.Islands.SelectMany(i => i.Ports).First(p => p.Id == orderOption.DestPortId);
-            var orderDistance = destPort.Position.DistanceTo(_port.Position);
+            var path = _pathFinder.Find(destPort, _port);
+            var orderDistance = path.Length;
             _game.Economy.Add(new Order
             {
                 OrderOptionId = orderOption.Id,
                 Cost = _orderCostCalculator.GetCost(mass, orderDistance),
                 Mass = mass
             });
-            _game.World.Ship.GoodsMass.Value += mass;
+            _game.World.Ship.Add(new OrderItem { GoodsId = goodsId, Mass = mass });
         }
 
         public IEnumerable<Goods> GetAvailableGoods()

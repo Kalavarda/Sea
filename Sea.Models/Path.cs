@@ -5,6 +5,8 @@ namespace Sea.Models
 {
     public class Path
     {
+        public static readonly Path Empty = new Path(new PointF[0]);
+
         public PointF[] Points { get; }
 
         public float Length
