@@ -5,7 +5,7 @@ namespace Sea.Models.Impl
 {
     public class OrderCostCalculator: IOrderCostCalculator
     {
-        private const float DistancePower = 1.125f;
+        private const float DistancePower = 1.0625f;
 
         private const float KilometerCost = 20;
 

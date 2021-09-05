@@ -43,6 +43,9 @@ namespace Sea.Controls
             _polygon.Points.Add(new Point(2 * w, 3 * h));
             _polygon.Points.Add(new Point(w, 4 * h));
             _polygon.Points.Add(new Point(0, 3 * h));
+
+            _heroTranslate.X = w - _hero.Width / 2;
+            _heroTranslate.Y = h - _hero.Height / 2;
         }
 
         private void Position_Changed(PointF shipPos)

@@ -39,7 +39,11 @@ namespace Sea.Factories
                 new Goods { Name = "Гвозди" },
                 new Goods { Name = "Яблоки" },
                 new Goods { Name = "Одежда" },
-                new Goods { Name = "Аккумуляторы" }
+                new Goods { Name = "Аккумуляторы" },
+                new Goods { Name = "Картофель" },
+                new Goods { Name = "Крупа" },
+                new Goods { Name = "Мясо" },
+                new Goods { Name = "Мука" }
             };
             for (uint i = 0; i < goods.Length; i++)
                 goods[i].Id = i;

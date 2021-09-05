@@ -31,7 +31,10 @@ namespace Sea
                 _ordersController = null;
 
                 if (_game != null)
+                {
+                    _game.World.Ship.Engine.Acceleration.Value = 0;
                     new ShipGoodsMassController(_game.World.Ship);
+                }
             }
         }
 

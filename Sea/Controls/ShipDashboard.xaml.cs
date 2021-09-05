@@ -92,5 +92,15 @@ namespace Sea.Controls
         {
             _sliderR.Value = 0;
         }
+
+        private void OnAccelerationHalfClick(object sender, RoutedEventArgs e)
+        {
+            _sliderA.Value = _sliderA.Maximum / 2;
+        }
+
+        private void OnAccelerationFullClick(object sender, RoutedEventArgs e)
+        {
+            _sliderA.Value = _sliderA.Maximum;
+        }
     }
 }

@@ -48,6 +48,8 @@
         <Slider x:Name="_sliderA" Grid.Column="1" Orientation="Vertical" ValueChanged="_sliderA_OnValueChanged" TickPlacement="TopLeft">
             <Slider.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Полный вперёд" Click="OnAccelerationFullClick"/>
+                    <MenuItem Header="1/2" Click="OnAccelerationHalfClick"/>
                     <MenuItem Header="Выключить" Click="OnAccelerationOffClick"/>
                 </ContextMenu>
             </Slider.ContextMenu>

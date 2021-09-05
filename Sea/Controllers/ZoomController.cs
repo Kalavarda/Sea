@@ -8,6 +8,7 @@ namespace Sea.Controllers
     public class ZoomController
     {
         private const double ZoomSpeed = 0.25;
+        private const double MaxZoom = 1000;
 
         private readonly Canvas _canvas;
         private readonly ScaleTransform _scaleTransform;
@@ -29,7 +30,7 @@ namespace Sea.Controllers
 
             var pointAtCanvas1 = e.GetPosition(_canvas);
 
-            _scaleTransform.ScaleX *= d;
+            _scaleTransform.ScaleX = Math.Min(d * _scaleTransform.ScaleX, MaxZoom);
             _scaleTransform.ScaleY = _scaleTransform.ScaleX;
 
             var pointAtCanvas2 = e.GetPosition(_canvas);

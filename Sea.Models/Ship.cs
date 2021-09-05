@@ -8,7 +8,7 @@ namespace Sea.Models
     public class Ship : IHasPosition
     {
         private const double MinSpeedDelta = 0.0001;
-        private const double MinDirectionDelta = MathF.PI / 1000;
+        private const double MinDirectionDelta = MathF.PI / 10000;
 
         private float _speed;
         private float _direction;
