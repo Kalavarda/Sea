@@ -1,7 +1,8 @@
 ﻿using System;
+using Kalavarda.Primitives;
+using Kalavarda.Primitives.Geometry;
 using NUnit.Framework;
 using Sea.Models;
-using Sea.Models.Geometry;
 using Sea.Models.Impl.Controllers;
 
 namespace Sea.Tests.Controllers
@@ -54,11 +55,11 @@ namespace Sea.Tests.Controllers
         {
             var port1 = new Port
             {
-                Position = new PointF { X = -300, Y = -200 }
+                Position = new PointF(-300, -200)
             };
             var port2 = new Port
             {
-                Position = new PointF { X = 300, Y = 200 }
+                Position = new PointF(300, 200)
             };
             var game = new Game
             {
@@ -67,7 +68,7 @@ namespace Sea.Tests.Controllers
                     Ship = new Ship
                     {
                         Fuel = new RangeF { Max = 100 },
-                        Position = new PointF { X = shipX, Y = shipY }
+                        Position = new PointF(shipX, shipY)
                     },
                     Islands = new []
                     {

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Kalavarda.Primitives;
+using Kalavarda.Primitives.Geometry;
 using Sea.Models;
-using Sea.Models.Geometry;
 using Sea.Models.Interfaces;
-using PointF = Sea.Models.Geometry.PointF;
-using SizeF = Sea.Models.Geometry.SizeF;
 
 namespace Sea.Factories
 {
@@ -42,17 +41,17 @@ namespace Sea.Factories
         {
             var ship = new Ship
             {
-                Size = new SizeF { Width = 1, Height = 2 },
-                Fuel = new RangeF { Max = 10 },
-                GoodsMass = new RangeF { Max = 100 },
+                Size = new SizeF { Width = 10, Height = 40 },
+                Fuel = new RangeF { Max = 10000 },
+                GoodsMass = new RangeF { Max = 50000 },
                 Engine = new Engine
                 {
                     FuelConsumption = 0.05f,
                     Rotation = new RangeF(-MathF.PI / 12, MathF.PI / 12),
-                    Acceleration = new RangeF(-0.25f, 1)
+                    Acceleration = new RangeF(-0.25f, 5)
                 }
             };
-            ship.Fuel.Value = ship.Fuel.Max / 2;
+            ship.Fuel.Value = ship.Fuel.Max;
             return ship;
         }
 
@@ -65,11 +64,7 @@ namespace Sea.Factories
                 .OrderBy(p => p.Position.DistanceTo(centerPoint))
                 .First();
 
-            return new PointF
-            {
-                X = nearestPort.Position.X,
-                Y = nearestPort.Position.Y
-            };
+            return new PointF(nearestPort.Position.X, nearestPort.Position.Y);
         }
 
         private static Island[] CreateIslands(WorldParameters parameters)
@@ -106,7 +101,7 @@ namespace Sea.Factories
             {
                 var a = i * MathF.PI / 4;
                 var r = defaultSize * (0.25f + 0.5f * (float)Rand.NextDouble());
-                var vertex = new PointF { X = x + r * MathF.Cos(a), Y = y + r * MathF.Sin(a) };
+                var vertex = new PointF( x + r * MathF.Cos(a), y + r * MathF.Sin(a));
                 points.Add(vertex);
                 if (Rand.Next(2) == 0)
                     ports.Add(new Port { Position = vertex });

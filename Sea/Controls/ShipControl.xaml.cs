@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Kalavarda.Primitives;
+using Kalavarda.Primitives.Geometry;
 using Sea.Models;
-using Sea.Models.Geometry;
+
 
 namespace Sea.Controls
 {

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Kalavarda.Primitives;
+using NUnit.Framework;
 using Sea.Models;
 using Sea.Models.Impl.Controllers;
 

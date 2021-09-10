@@ -1,7 +1,8 @@
 ﻿using System;
+using Kalavarda.Primitives;
+using Kalavarda.Primitives.Geometry;
 using NUnit.Framework;
 using Sea.Models;
-using Sea.Models.Geometry;
 using Sea.Models.Impl.Controllers;
 
 namespace Sea.Tests.Controllers

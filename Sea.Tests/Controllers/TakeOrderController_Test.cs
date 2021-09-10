@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Kalavarda.Primitives;
+using Kalavarda.Primitives.Geometry;
 using Moq;
 using NUnit.Framework;
 using Sea.Models;
@@ -71,12 +73,12 @@ namespace Sea.Tests.Controllers
             var port = new Port
             {
                 Id = 11,
-                Position = new PointF { X = portX, Y = portY }
+                Position = new PointF(portX, portY)
             };
             var port2 = new Port
             {
                 Id = 22,
-                Position = new PointF { X = portX, Y = portY }
+                Position = new PointF(portX, portY)
             };
 
             var game = new Game
@@ -89,7 +91,7 @@ namespace Sea.Tests.Controllers
                     },
                     Ship = new Ship
                     {
-                        Position = new PointF { X = shipX, Y = shipY },
+                        Position = new PointF(shipX, shipY),
                         GoodsMass = new RangeF { Max = 10 }
                     }
                 },

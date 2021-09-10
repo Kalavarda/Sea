@@ -4,14 +4,14 @@ using System.Diagnostics;
 namespace Sea.Models.Geometry
 {
     [DebuggerDisplay("{X}; {Y}")]
-    public class PointF
+    public class Point_F
     {
         private const float MinDelta = 0.001f;
 
         private float _x;
         private float _y;
 
-        public static PointF Zero { get; } = new PointF { X = 0, Y = 0 };
+        public static Point_F Zero { get; } = new Point_F { X = 0, Y = 0 };
 
         public float X
         {
@@ -43,7 +43,7 @@ namespace Sea.Models.Geometry
 
         public event Action XChanged;
         public event Action YChanged;
-        public event Action<PointF> Changed;
+        public event Action<Point_F> Changed;
 
         public void Set(float x, float y)
         {
@@ -57,9 +57,9 @@ namespace Sea.Models.Geometry
         }
     }
 
-    public static class PointFExtensions
+    public static class PointF_Extensions
     {
-        public static float DistanceTo(this PointF point1, PointF point2)
+        public static float DistanceTo(this Point_F point1, Point_F point2)
         {
             if (point1 == null) throw new ArgumentNullException(nameof(point1));
             if (point2 == null) throw new ArgumentNullException(nameof(point2));
@@ -68,10 +68,10 @@ namespace Sea.Models.Geometry
             return MathF.Sqrt(dx * dx + dy * dy);
         }
 
-        public static PointF Clone(this PointF point)
+        public static Point_F Clone(this Point_F point)
         {
             if (point == null) throw new ArgumentNullException(nameof(point));
-            return new PointF
+            return new Point_F
             {
                 X = point.X,
                 Y = point.Y

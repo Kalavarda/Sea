@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using Kalavarda.Primitives;
+using Kalavarda.Primitives.Geometry;
 using Sea.Models.Geometry;
 using Sea.Models.Utils;
 
@@ -64,7 +66,7 @@ namespace Sea.Models
         /// <summary>
         /// Масса товаров
         /// </summary>
-        public RangeF GoodsMass { get; set; }
+        public RangeF GoodsMass { get; set; } = new RangeF();
 
         public OrderItem[] OrderItems { get; set; } = new OrderItem[0];
 

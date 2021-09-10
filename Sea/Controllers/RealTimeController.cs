@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Threading;
+using Kalavarda.Primitives;
 using Sea.Models.Impl.Controllers;
-using Sea.Utils;
 
 namespace Sea.Controllers
 {

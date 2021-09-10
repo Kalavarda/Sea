@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Kalavarda.Primitives;
+using Kalavarda.Primitives.Geometry;
 using Sea.Controllers;
 using Sea.Models;
 using Sea.Models.Geometry;
