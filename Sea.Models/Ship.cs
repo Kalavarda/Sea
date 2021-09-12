@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using Kalavarda.Primitives;
+using Kalavarda.Primitives.Abstract;
 using Kalavarda.Primitives.Geometry;
-using Sea.Models.Geometry;
 using Sea.Models.Utils;
 
 namespace Sea.Models

@@ -1,7 +1,6 @@
 ﻿using System;
-using Kalavarda.Primitives;
+using Kalavarda.Primitives.Abstract;
 using Kalavarda.Primitives.Geometry;
-using Sea.Models.Geometry;
 
 namespace Sea.Models
 {

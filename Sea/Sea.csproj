@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Primitives\Kalavarda.Primitives.WPF\Kalavarda.Primitives.WPF.csproj" />
     <ProjectReference Include="..\Sea.Factories\Sea.Factories.csproj" />
     <ProjectReference Include="..\Sea.Models\Sea.Models.csproj" />
     <ProjectReference Include="..\Sea.Repositories\Sea.Repositories.csproj" />

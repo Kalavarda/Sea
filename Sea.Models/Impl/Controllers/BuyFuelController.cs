@@ -1,5 +1,4 @@
 ﻿using System;
-using Sea.Models.Geometry;
 using Sea.Models.Interfaces;
 
 namespace Sea.Models.Impl.Controllers

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sea.Models.Geometry;
 using Sea.Models.Interfaces;
 
 namespace Sea.Models.Impl.Controllers

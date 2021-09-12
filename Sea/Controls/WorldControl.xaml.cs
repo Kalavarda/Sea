@@ -5,10 +5,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Kalavarda.Primitives;
+using Kalavarda.Primitives.Controllers;
 using Kalavarda.Primitives.Geometry;
 using Sea.Controllers;
 using Sea.Models;
-using Sea.Models.Geometry;
 
 namespace Sea.Controls
 {
@@ -80,7 +80,7 @@ namespace Sea.Controls
         {
             InitializeComponent();
             new ZoomController(_root, _canvas, _scaleTransform, _translateTransform);
-            new DragAndDropController(_root, _translateTransform, _scaleTransform);
+            new DragAndDropController(_root, _translateTransform);
 
             _scaleTransform.Changed += _transform_Changed;
             _translateTransform.Changed += _transform_Changed;

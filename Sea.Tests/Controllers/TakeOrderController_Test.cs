@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Kalavarda.Primitives;
+using Kalavarda.Primitives.Abstract;
 using Kalavarda.Primitives.Geometry;
 using Moq;
 using NUnit.Framework;
 using Sea.Models;
-using Sea.Models.Geometry;
 using Sea.Models.Impl.Controllers;
 using Sea.Models.Interfaces;
 

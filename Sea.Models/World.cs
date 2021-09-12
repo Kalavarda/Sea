@@ -1,5 +1,4 @@
 ﻿using Kalavarda.Primitives.Geometry;
-using Sea.Models.Geometry;
 
 namespace Sea.Models
 {
